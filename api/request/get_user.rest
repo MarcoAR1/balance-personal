@@ -2,8 +2,5 @@ GET http://localhost:3001/api/user/
 Content-Type:  application/json
 
 {
- "username":"MarcoElDelArcoaaa",
- "password":"61651165161",
- "email":"; DROP TABLE User",
- "name":"Marco"
+ "limit":10
 }

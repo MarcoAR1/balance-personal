@@ -1,7 +1,7 @@
 const sql = require('../dbmysql')
 
 class User {
-  constructor({ username, password, email, name }) {
+  constructor({ username = '', password = '', email = '', name = '' } = '') {
     this.username = username
     this.password = password
     this.email = email
@@ -16,11 +16,32 @@ class User {
     const result = await sql.promise().query(`INSERT INTO User SET ?`, [this])
     return result
   }
+
   async getUser() {
     const result = await sql
       .promise()
       .query(`SELECT * FROM User WHERE username = ?`, [this.username])
     return result[0]
+  }
+  async getAllUser(limit) {
+    if (limit) {
+      const result = await sql
+        .promise()
+        .query(`SELECT username FROM User LIMIT ?`, [limit])
+      return result[0]
+    }
+
+    const result = await sql.promise().query(`SELECT username FROM User`)
+    return result[0]
+  }
+  async deleteUser(username, email) {
+    const result = await sql
+      .promise()
+      .query(`DELETE FROM User WHERE username = ? AND email = ?`, [
+        username,
+        email,
+      ])
+    return result
   }
 
   validate() {
