@@ -1,0 +1,10 @@
+body {
+  font-family: 'Roboto', 'Sans serif';
+}
+
+.App {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}

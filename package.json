@@ -4,7 +4,7 @@
   "description": "",
   "workspaces": [
     "api",
-    "app"
+    "my-app"
   ],
   "main": "index.js",
   "scripts": {
