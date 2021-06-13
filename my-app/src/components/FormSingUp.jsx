@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Card, TextField, Typography } from '@material-ui/core'
 import useStyles from '../styles/FormLoginStyle'
+import SingUp from '../services/singup'
 
 const FormSingUp = () => {
   const [username, setUsername] = useState('')
@@ -8,6 +9,7 @@ const FormSingUp = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [email, setEmail] = useState('')
   const [fullName, setFullName] = useState('')
+  const [message, setMessage] = useState('')
   const classes = useStyles()
 
   const handleChangeUsername = (e) => {
@@ -30,6 +32,19 @@ const FormSingUp = () => {
     const value = e.target.value
     setFullName(value)
   }
+  const handleChangeMessage = ({ message }) => {
+    setMessage(message)
+  }
+
+  const handleSubmitSingup = async (e) => {
+    e.preventDefault()
+    const request = await SingUp({ username, password, email, name: fullName })
+    if (request.status && request.status === 201) {
+      return handleChangeMessage(request)
+    }
+    return handleChangeMessage(request)
+  }
+
   return (
     <>
       <Card className={classes.containerFrom}>
@@ -40,6 +55,7 @@ const FormSingUp = () => {
         <form
           className={classes.inputsFormLogin}
           id="my-input"
+          onSubmit={handleSubmitSingup}
           noValidate
           autoComplete="off"
         >
@@ -82,11 +98,13 @@ const FormSingUp = () => {
             value={email}
           />
 
-          <Button variant="outlined">Sing Up</Button>
+          <Button type="submit" variant="outlined">
+            Sing Up
+          </Button>
         </form>
         <div>
           <Typography variant="body1" color="secondary">
-            Error todo mal che
+            {message}
           </Typography>
         </div>
       </Card>

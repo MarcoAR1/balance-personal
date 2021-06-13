@@ -12,8 +12,8 @@ class User {
     if (!this.validate()) {
       return 'no me cuelas cracken'
     }
-
     const result = await sql.promise().query(`INSERT INTO User SET ?`, [this])
+    sql.end
     return result
   }
 
@@ -21,6 +21,7 @@ class User {
     const result = await sql
       .promise()
       .query(`SELECT * FROM User WHERE username = ?`, [this.username])
+    sql.end
     return result[0]
   }
   async getAllUser(limit) {
@@ -28,10 +29,12 @@ class User {
       const result = await sql
         .promise()
         .query(`SELECT username FROM User LIMIT ?`, [limit])
+      sql.end
       return result[0]
     }
 
     const result = await sql.promise().query(`SELECT username FROM User`)
+    sql.end()
     return result[0]
   }
   async deleteUser(username, email) {
@@ -41,6 +44,7 @@ class User {
         username,
         email,
       ])
+    sql.end
     return result
   }
 

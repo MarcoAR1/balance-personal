@@ -9,7 +9,6 @@ loginRouter.post('/', async (req, res) => {
   const getUser = await new User({ username, password }).getUser()
   if (!getUser[0])
     return res.status(401).json({ message: 'pasword or username incorrect.' })
-
   if (!(await bcrypt.compare(password, getUser[0].password)))
     return res.status(401).json({ message: 'pasword or username incorrect.' })
   const tokenUser = {

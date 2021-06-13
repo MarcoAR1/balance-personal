@@ -1,9 +1,15 @@
 const ERROR_TYPE = {
-  default: (res, err, next) => res.status(500).send(err),
   ValidationError: (res, err) => res.status(400).send(err),
   JsonWebTokenError: (res) =>
     res.status(401).json({ error: 'token missing or invalid' }),
   TokenExpiredError: (res) => res.status(401).json({ error: 'token expired' }),
+  Error: (res, err, next) => {
+    if (err.code === 'ER_DUP_ENTRY') {
+      const duplicate = err.sqlMessage.split(' ')[2]
+      res.status(400).json({ message:duplicate})
+    }
+  },
+  default: (res, err, next) => res.status(500).send(err),
 }
 const handleError = (err, req, res, next) => {
   console.error(err)

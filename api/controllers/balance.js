@@ -13,34 +13,35 @@ balanceRouter.post('/', verifyToken, async (req, res) => {
   res.json(newBalance)
 })
 balanceRouter.get('/', verifyToken, async (req, res) => {
-  const { username } = req.body
+  const username = req.username
   const newBalance = await new Balance({
     username,
   }).getAllBalancetoaUser()
-  console.log(newBalance)
-  res.json(newBalance)
+  res.status(202).json(JSON.stringify(newBalance))
 })
-balanceRouter.get('/history', verifyToken, async (req, res) => {
+balanceRouter.get('/record', verifyToken, async (req, res) => {
   const {
-    username,
     limit = 10,
     order = 'desc',
     startDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-0`,
     endDate = `${new Date().getFullYear()}-${new Date().getMonth() + 2}-0`,
   } = req.body
-  const newHistoryBalance = await new Balance({
+  const username = req.username
+  const RecordBalance = await new Balance({
     username,
-  }).getAllHistoryBalancetoaUser(limit, order, startDate, endDate)
-  console.log(newHistoryBalance)
-  res.json(newHistoryBalance)
+  }).getAllRecordsBalancetoaUser(limit, order, startDate, endDate)
+  res.status(202).json(JSON.stringify(RecordBalance))
 })
 
-balanceRouter.delete('/', verifyToken, async (req, res) => {
-  const { balance_id } = req.body
+balanceRouter.delete('/:id', verifyToken, async (req, res) => {
+  const { id } = req.params
+  const { usernameBody } = req.body
   const username = req.username
-  console.log(username, balance_id)
-  const deleteBalance = await new Balance().deleteaBalance(balance_id, username)
-  res.json(deleteBalance)
+  if (usernameBody !== username) {
+    return res.status(401).json({ message: 'not authenticated' })
+  }
+  const deleteBalance = await new Balance().deleteaBalance(id, username)
+  res.status(404).json(deleteBalance)
 })
 
 module.exports = balanceRouter

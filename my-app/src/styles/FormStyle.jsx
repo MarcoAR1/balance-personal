@@ -45,30 +45,31 @@ const useStyles = makeStyles(() => ({
       display: 'block',
     },
   },
-
-  textNormal: {
+  button: {
     whiteSpace: 'nowrap',
     transform: 'rotate(90deg)',
     display: 'flex',
-    fontSize: '19px',
     alignItems: 'center',
-    textAlign: 'center',
-    color: '#FFFFFF',
     '@media (min-width:800px)': {
-      transform: 'rotate(360deg)',
+      transform: 'none',
     },
   },
+
+  textNormal: {
+    fontSize: '19px',
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
   textHover: {
-    whiteSpace: 'nowrap',
-    transform: 'rotate(90deg)',
-    display: 'flex',
-    alignItems: 'center',
     color: '#FFFFFF',
     fontSize: '25px',
     textAlign: 'center',
     borderTop: '15px solid #2D25CB',
     '@media (min-width:800px)': {
-      transform: 'rotate(360deg)',
+      border: 'thick double  #2D25CB',
+      borderBottom: 'dotted',
+      borderLeft: 'none',
+      borderRight: 'none',
     },
   },
 }))

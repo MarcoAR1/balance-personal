@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import FormLogin from './FormLogin'
 import FormSingUp from './FormSingUp'
 
-const Form = () => {
+const Form = ({handleChangeUser}) => {
   const [focused, setFocused] = useState(true)
   const classes = useStyles()
   const handleFocused = (boolean) => {
@@ -15,21 +15,19 @@ const Form = () => {
     <div className={classes.container}>
       <div className={classes.tertiary}></div>
       <div className={classes.secondary}>
-        <Button
-          onClick={() => handleFocused(true)}
-          className={focused ? classes.textHover : classes.textNormal}
-        >
-          Log In
+        <Button className={classes.button} onClick={() => handleFocused(true)}>
+          <p className={!focused ? classes.textNormal : classes.textHover}>
+            Log In
+          </p>
         </Button>
-        <Button
-          onClick={() => handleFocused(false)}
-          className={!focused ? classes.textHover : classes.textNormal}
-        >
-          Sing Up
+        <Button className={classes.button} onClick={() => handleFocused(false)}>
+          <p className={focused ? classes.textNormal : classes.textHover}>
+            Sing Up
+          </p>
         </Button>
       </div>
       {focused ? (
-        <FormLogin className={classes.primary} />
+        <FormLogin handleChangeUser={handleChangeUser} className={classes.primary} />
       ) : (
         <FormSingUp className={classes.primary} />
       )}

@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Button, Card, TextField, Typography } from '@material-ui/core'
 import useStyles from '../styles/FormLoginStyle'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
+import Login from '../services/login'
 
-const FormLogin = () => {
+const FormLogin = ({ handleChangeUser }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [messageNotification, setMessageNotification] = useState('')
@@ -16,6 +17,15 @@ const FormLogin = () => {
   const handleChangePassword = (e) => {
     const value = e.target.value
     setPassword(value)
+  }
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    const data = await Login({ username, password })
+    if (data.message) {
+      return handleMessageNotification(data.message)
+    }
+    window.localStorage.setItem('infoUser', JSON.stringify(data))
+    return handleChangeUser(data)
   }
 
   const handleMessageNotification = (message) => {
@@ -30,8 +40,9 @@ const FormLogin = () => {
         </div>
 
         <form
+          onSubmit={handleLogin}
           className={classes.inputsFormLogin}
-          id="my-input"
+          id="my-login-form"
           noValidate
           autoComplete="off"
         >
@@ -51,7 +62,7 @@ const FormLogin = () => {
             value={password}
           />
 
-          <Button variant="outlined" endIcon={<LockOpenIcon />}>
+          <Button type="submit" variant="outlined" endIcon={<LockOpenIcon />}>
             Sing In
           </Button>
         </form>
