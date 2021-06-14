@@ -1,11 +1,21 @@
 import { Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import useStyles from '../styles/HomeBalanceStyle'
 import RecordBalance from './RecordBalance'
 import UserInfoCard from './UserInfoCard'
-
+import FormBalance from './FormBalance'
 const HomeBalance = ({ userInfo }) => {
+  const [addBalance, setAddBalance] = useState(false)
+  const [animation, setAnimation] = useState(false)
   const classes = useStyles()
+
+  const handleChangeView = (value) => {
+    setAnimation(true)
+    setTimeout(() => {
+      setAnimation(false)
+      setAddBalance(value)
+    }, 300)
+  }
 
   return (
     <div className={classes.container}>
@@ -14,7 +24,19 @@ const HomeBalance = ({ userInfo }) => {
       </div>
       <div className={classes.containerApp}>
         <div className={classes.userInfoContainer}>
-          <UserInfoCard name={userInfo.name} />
+          {addBalance ? (
+            <FormBalance
+              animation={animation}
+              setAddBalance={handleChangeView}
+              type={addBalance}
+            />
+          ) : (
+            <UserInfoCard
+              animation={animation}
+              setAddBalance={handleChangeView}
+              name={userInfo.name}
+            />
+          )}
           <div className={classes.graphicInfo}></div>
         </div>
 

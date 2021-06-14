@@ -9,34 +9,33 @@ const useStyles = makeStyles(() => ({
   containerTitle: {
     display: 'flex',
     justifyContent: 'center',
-    width: '95%',
     marginTop: '10px',
   },
-  title: {
-    flexGrow: 1,
-    transform: 'translate(30px)',
+  containerFrom: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '20px',
   },
-  totalBalance: {
-    marginLeft: '20px',
-  },
-  containerGraphic: {
-    marginLeft: '20px',
+  input: {
+    marginBottom: '20px',
   },
   containerButtons: {
     display: 'flex',
-    margin: '10px 20px 20px 20px',
+    margin: '50px 20px 20px 20px',
   },
-  containerButtonADD: {
+  containerButtonCancel: {
     flexGrow: '1',
   },
-  buttonAdd: {
+  buttonCancel: {
     width: '138px',
     height: '48px',
     borderRadius: '50px',
     background: '#BEFBC1',
     boxShadow: 'none',
   },
-  buttonWithDraw: {
+  buttonSave: {
     width: '138px',
     height: '48px',
     borderRadius: '50px',

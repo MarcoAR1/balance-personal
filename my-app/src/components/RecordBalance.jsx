@@ -1,16 +1,56 @@
-import { Button, Card, IconButton, Typography } from '@material-ui/core'
+import { Card, IconButton, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import MenuIcon from '@material-ui/icons/Menu'
 import useStyles from '../styles/RecordBalanceStyle'
-import { getBalanceRecord } from '../services/balances'
+import { deleteRecordId, getBalanceRecord } from '../services/balances'
+import ItemRecord from './ItemRecord'
 
 const HistorialBalance = () => {
   const [balance, getAllBalance] = useState([])
+  const [deleteConfirmation, setdeleteConfirmation] = useState([])
   const classes = useStyles()
+
+  const handleDeleteRecord = async (position, id, cancel) => {
+    if (cancel) {
+      setdeleteConfirmation((prev) => {
+        let copy = [...prev]
+        copy[position] = true
+        setdeleteConfirmation(copy)
+      })
+      return
+    }
+    if (!id) {
+      setdeleteConfirmation((prev) => {
+        let copy = [...prev]
+        copy[position] = false
+        setdeleteConfirmation(copy)
+      })
+      return
+    }
+    const deleteRecord = await deleteRecordId(id)
+    if (!deleteRecord.responseText) {
+      return 'error'
+    }
+    const res = JSON.parse(deleteRecord.responseText)
+    if (res[0].affectedRows === 1) {
+      setdeleteConfirmation((prev) => {
+        let copy = [...prev]
+        copy.splice(position, 1)
+        return copy
+      })
+      getAllBalance((prev) => {
+        let copy = [...prev]
+        copy.splice(position, 1)
+        return copy
+      })
+    }
+  }
+
   useEffect(() => {
     const getRecord = async () => {
       const records = await getBalanceRecord()
       getAllBalance(records ? records : [])
+      setdeleteConfirmation(new Array(records.length).fill(true))
     }
     getRecord()
   }, [])
@@ -26,35 +66,12 @@ const HistorialBalance = () => {
         </IconButton>
       </div>
       <div className={classes.containerRecord}>
-        {balance.map((e, i) => {
-          return (
-            <div
-              className={`${classes.itemRecordBalance} ${
-                true ? classes.recordPayIn : classes.recordWithout
-              }`}
-              key={i}
-            >
-              <div className={classes.record}>
-                <div
-                  onClick={() => {
-                    console.log('presionado')
-                  }}
-                  className={classes.text}
-                >
-                  {e}$
-                </div>
-                <Button
-                  onClick={() => {
-                    console.log('Borrado')
-                  }}
-                  className={classes.deleteButton}
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-          )
-        })}
+        <ItemRecord
+          balance={balance}
+          handleDeleteRecord={handleDeleteRecord}
+          deleteConfirmation={deleteConfirmation}
+          setdeleteConfirmation={setdeleteConfirmation}
+        />
       </div>
     </Card>
   )

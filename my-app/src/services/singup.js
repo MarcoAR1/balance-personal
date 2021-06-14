@@ -1,19 +1,18 @@
 const url = 'http://localhost:3001/api/user'
 
 const SingUp = async (data) => {
-  const req = new XMLHttpRequest()
-  await new Promise((resolve, reject) => {
+  const res = await new Promise((resolve, reject) => {
+    const load = (e) => {
+      resolve(e.currentTarget)
+    }
+    const req = new XMLHttpRequest()
     req.open('POST', url, true)
     req.setRequestHeader('Content-Type', 'application/json')
+    req.onloadend = load
+    req.onerror = reject
     req.send(JSON.stringify(data))
-    req.addEventListener('load', function Abort() {
-      resolve(req)
-      reject(req)
-      req.abort()
-      req.removeEventListener('load', Abort)
-    })
   })
-  if (req.status === 201) {
+  if (res.status === 201) {
     return { message: 'Usuario Created' }
   }
   return { message: 'Usuario or email already exists.' }
