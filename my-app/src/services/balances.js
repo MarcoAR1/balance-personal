@@ -1,8 +1,8 @@
 const url = 'http://localhost:3001/api/balance'
 
-let userToken = 'Bearer '
+let userToken = ''
 const setTokens = (string) => {
-  userToken += string
+  userToken = 'Bearer ' + string
 }
 
 const getTotalBalance = async () => {

@@ -9,14 +9,14 @@ body {
   height: 100vh;
   background: linear-gradient(to right, #523be5, #2d25cb);
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .banner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
+  height: 5%;
 }
 
 .banner_img {

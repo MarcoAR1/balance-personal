@@ -27,7 +27,7 @@ balanceRouter.get('/', verifyToken, async (req, res) => {
 })
 balanceRouter.get('/record', verifyToken, async (req, res) => {
   const {
-    limit = 10,
+    limit = 50,
     order = 'desc',
     startDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-0`,
     endDate = `${new Date().getFullYear()}-${new Date().getMonth() + 2}-0`,

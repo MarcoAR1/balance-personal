@@ -1,24 +1,18 @@
-import { Button, Card, Typography, IconButton } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import MenuIcon from '@material-ui/icons/Menu'
+import { Button, Card, Typography } from '@material-ui/core'
+import React from 'react'
 import Graphic from './Graphic'
-import { getTotalBalance } from '../services/balances'
 import useStyles from '../styles/UserInfoCardStyle'
 import '../styles/App.css'
+import MenuFloatList from './MenuFloatList'
 
-const UserInfoCard = ({ name, setAddBalance, animation }) => {
-  const [balanceTotal, setBalanceTotal] = useState(0)
+const UserInfoCard = ({
+  name,
+  setAddBalance,
+  animation,
+  balanceTotal,
+  setUserInfo,
+}) => {
   const classes = useStyles()
-
-  useEffect(() => {
-    const getTotal = async () => {
-      const total = await getTotalBalance()
-      if (total[0]) {
-        setBalanceTotal(total[0].amount)
-      }
-    }
-    getTotal()
-  }, [])
 
   return (
     <Card className={`${classes.container} ${animation && 'flip-right'}`}>
@@ -32,9 +26,7 @@ const UserInfoCard = ({ name, setAddBalance, animation }) => {
           >
             {name}
           </Typography>
-          <IconButton aria-label="Menu" onClick={() => {}}>
-            <MenuIcon />
-          </IconButton>
+          <MenuFloatList setUserInfo={setUserInfo} />
         </div>
         <Typography
           className={classes.totalBalance}

@@ -2,12 +2,7 @@ import { Button } from '@material-ui/core'
 import React from 'react'
 import useStyles from '../styles/ItemRecordStyle'
 
-const ItemRecord = ({
-  balance,
-  handleDeleteRecord,
-  deleteConfirmation,
-  setdeleteConfirmation,
-}) => {
+const ItemRecord = ({ balance, handleDeleteRecord, deleteConfirmation }) => {
   const classes = useStyles()
   return (
     <>

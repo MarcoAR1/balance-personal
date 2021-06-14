@@ -18,7 +18,7 @@ function App() {
   return (
     <Background>
       {userInfo ? (
-        <HomeBalance userInfo={userInfo} />
+        <HomeBalance userInfo={userInfo} setUserInfo={setUserInfo} />
       ) : (
         <Form handleChangeUser={setUserInfo} setTokens={setTokens} />
       )}

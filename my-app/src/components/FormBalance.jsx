@@ -11,21 +11,59 @@ import React from 'react'
 import { category, addNewRecord } from '../services/balances'
 import useStyles from '../styles/FormBalanceStyle'
 
-const FormBalance = ({ type, setAddBalance, animation }) => {
+const FormBalance = ({
+  type,
+  setAddBalance,
+  animation,
+  setBalanceTotal,
+  getAllBalance,
+  setdeleteConfirmation,
+}) => {
   const classes = useStyles()
   const handleFormSubmit = async (e) => {
     e.preventDefault()
-    const amount = e.target[0].value
+    const amount = e.target[0].value ? e.target[0].value : 0
     const categoryOrDescription = e.target[1].value
     const data = {
       amount,
       type,
       description:
         type === 'add'
-          ? { description: categoryOrDescription }
-          : { category: categoryOrDescription },
+          ? JSON.stringify({ description: categoryOrDescription })
+          : JSON.stringify({ category: categoryOrDescription }),
     }
-    await addNewRecord(data)
+    const res = await addNewRecord(data)
+
+    if (!res) {
+      setAddBalance(false)
+      return 'error'
+    }
+    if (JSON.parse(res)[0].affectedRows === 0) {
+      setAddBalance(false)
+      return 'error'
+    }
+    const id = JSON.parse(res)[0].insertId
+    const date = new Date().toISOString()
+    const newRecord = {
+      ...data,
+      balance_id: id,
+      created_at: date,
+    }
+    setdeleteConfirmation((prev) => {
+      const copy = [...prev]
+      copy.splice(0, 0, true)
+      return copy
+    })
+    getAllBalance((prev) => {
+      const copy = [...prev]
+      copy.splice(0, 0, newRecord)
+      return copy
+    })
+    setBalanceTotal((prev) => {
+      return newRecord.type === 'add'
+        ? parseInt(prev) + parseInt(newRecord.amount)
+        : parseInt(prev) - parseInt(newRecord.amount)
+    })
     setAddBalance(false)
   }
 
