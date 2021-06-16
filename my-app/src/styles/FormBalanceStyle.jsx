@@ -32,14 +32,14 @@ const useStyles = makeStyles(() => ({
     width: '138px',
     height: '48px',
     borderRadius: '50px',
-    background: '#BEFBC1',
+    background: '#FB9F9F',
     boxShadow: 'none',
   },
   buttonSave: {
     width: '138px',
     height: '48px',
     borderRadius: '50px',
-    background: '#FB9F9F',
+    background: '#BEFBC1',
     boxShadow: 'none',
   },
 }))

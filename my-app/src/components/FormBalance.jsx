@@ -8,38 +8,36 @@ import {
   Typography,
 } from '@material-ui/core'
 import React from 'react'
+import useBalance from '../hooks/useBalance'
+import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
 import { category, addNewRecord } from '../services/balances'
 import useStyles from '../styles/FormBalanceStyle'
 
-const FormBalance = ({
-  type,
-  setAddBalance,
-  animation,
-  setBalanceTotal,
-  getAllBalance,
-  setdeleteConfirmation,
-}) => {
+const FormBalance = () => {
+  const { view, animation, ChangeViewTypeHome } = useViewAndAnimation()
+  const { addRecord } = useBalance()
   const classes = useStyles()
+
   const handleFormSubmit = async (e) => {
     e.preventDefault()
     const amount = e.target[0].value ? e.target[0].value : 0
     const categoryOrDescription = e.target[1].value
     const data = {
       amount,
-      type,
+      type: view,
       description:
-        type === 'add'
+        view === 'add'
           ? JSON.stringify({ description: categoryOrDescription })
           : JSON.stringify({ category: categoryOrDescription }),
     }
     const res = await addNewRecord(data)
 
     if (!res) {
-      setAddBalance(false)
+      ChangeViewTypeHome()
       return 'error'
     }
     if (JSON.parse(res)[0].affectedRows === 0) {
-      setAddBalance(false)
+      ChangeViewTypeHome()
       return 'error'
     }
     const id = JSON.parse(res)[0].insertId
@@ -49,26 +47,16 @@ const FormBalance = ({
       balance_id: id,
       created_at: date,
     }
-    setdeleteConfirmation((prev) => {
-      const copy = [...prev]
-      copy.splice(0, 0, true)
-      return copy
-    })
-    getAllBalance((prev) => {
-      const copy = [...prev]
-      copy.splice(0, 0, newRecord)
-      return copy
-    })
-    setBalanceTotal((prev) => {
-      return newRecord.type === 'add'
-        ? parseInt(prev) + parseInt(newRecord.amount)
-        : parseInt(prev) - parseInt(newRecord.amount)
-    })
-    setAddBalance(false)
+    addRecord(newRecord)
+    ChangeViewTypeHome()
   }
 
   return (
-    <Card className={`${classes.container} ${animation && 'flip-left'}`}>
+    <Card
+      className={`${classes.container} ${animation.rightTwo && 'flip-right2'} ${
+        animation.leftOne && 'flip-left'
+      }`}
+    >
       <div className={classes.containerTitle}>
         <Typography align="center" variant="h5" color="initial">
           New Record
@@ -86,7 +74,7 @@ const FormBalance = ({
           label="Amount"
           onChange={() => {}}
         />
-        {type === 'sub' ? (
+        {view === 'sub' ? (
           <FormControl className={classes.formControl}>
             <InputLabel>Category</InputLabel>
             <Select native defaultValue="">
@@ -101,18 +89,13 @@ const FormBalance = ({
             </Select>
           </FormControl>
         ) : (
-          <TextField
-            type="textArea"
-            id="description"
-            label="Description"
-            onChange={() => {}}
-          />
+          <TextField type="textArea" id="description" label="Description" />
         )}
       </form>
       <div className={classes.containerButtons}>
         <div className={classes.containerButtonCancel}>
           <Button
-            onClick={() => setAddBalance(false)}
+            onClick={ChangeViewTypeHome}
             className={classes.buttonCancel}
             variant="contained"
           >

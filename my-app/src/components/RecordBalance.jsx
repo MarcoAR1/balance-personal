@@ -1,10 +1,10 @@
-import { Card, IconButton, Typography } from '@material-ui/core'
+import { Card, Typography } from '@material-ui/core'
 import React from 'react'
-import MenuIcon from '@material-ui/icons/Menu'
 import useStyles from '../styles/RecordBalanceStyle'
 import ItemRecord from './ItemRecord'
+import OptionsFloatList from './OptionsFloatList'
 
-const RocordBalance = ({ balance, deleteConfirmation, handleDeleteRecord }) => {
+const RocordBalance = () => {
   const classes = useStyles()
 
   return (
@@ -13,16 +13,10 @@ const RocordBalance = ({ balance, deleteConfirmation, handleDeleteRecord }) => {
         <Typography className={classes.title} variant="h4" color="initial">
           Records
         </Typography>
-        <IconButton aria-label="Menu" onClick={() => {}}>
-          <MenuIcon />
-        </IconButton>
+        <OptionsFloatList />
       </div>
       <div className={classes.containerRecord}>
-        <ItemRecord
-          balance={balance}
-          handleDeleteRecord={handleDeleteRecord}
-          deleteConfirmation={deleteConfirmation}
-        />
+        <ItemRecord />
       </div>
     </Card>
   )

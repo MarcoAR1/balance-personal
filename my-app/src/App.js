@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react'
 import Background from './components/Background'
 import Form from './components/Form'
 import HomeBalance from './components/HomeBalance'
-import { setTokens } from './services/balances'
 import './styles/App.css'
-
+import useUser from './hooks/useUser'
 function App() {
-  const [userInfo, setUserInfo] = useState(null)
-
-  useEffect(() => {
-    const userData = window.localStorage.getItem('infoUser')
-    if (userData) {
-      setTokens(JSON.parse(userData).token)
-      setUserInfo(JSON.parse(userData))
-    }
-  }, [])
+  const { userInfo } = useUser()
   return (
     <Background>
-      {userInfo ? (
-        <HomeBalance userInfo={userInfo} setUserInfo={setUserInfo} />
-      ) : (
-        <Form handleChangeUser={setUserInfo} setTokens={setTokens} />
-      )}
+      {userInfo.name ? <HomeBalance /> : <Form />}
     </Background>
   )
 }

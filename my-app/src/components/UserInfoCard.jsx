@@ -4,18 +4,22 @@ import Graphic from './Graphic'
 import useStyles from '../styles/UserInfoCardStyle'
 import '../styles/App.css'
 import MenuFloatList from './MenuFloatList'
+import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
+import { useSelector } from 'react-redux'
 
-const UserInfoCard = ({
-  name,
-  setAddBalance,
-  animation,
-  balanceTotal,
-  setUserInfo,
-}) => {
+const UserInfoCard = () => {
+  const { animation, ChangeViewTypeAdd, ChangeViewTypeSub } =
+    useViewAndAnimation()
+  const balanceTotal = useSelector(({ balance }) => balance.Balance)
+  const userInfo = useSelector(({ user }) => user)
   const classes = useStyles()
 
   return (
-    <Card className={`${classes.container} ${animation && 'flip-right'}`}>
+    <Card
+      className={`${classes.container} ${animation.rightOne && 'flip-right'} ${
+        animation.leftTwo && 'flip-left2'
+      }`}
+    >
       <div>
         <div className={classes.containerTitle}>
           <Typography
@@ -24,9 +28,9 @@ const UserInfoCard = ({
             variant="h4"
             color="initial"
           >
-            {name}
+            {userInfo.name}
           </Typography>
-          <MenuFloatList setUserInfo={setUserInfo} />
+          <MenuFloatList />
         </div>
         <Typography
           className={classes.totalBalance}
@@ -42,7 +46,7 @@ const UserInfoCard = ({
       <div className={classes.containerButtons}>
         <div className={classes.containerButtonADD}>
           <Button
-            onClick={() => setAddBalance('add')}
+            onClick={ChangeViewTypeAdd}
             className={classes.buttonAdd}
             variant="contained"
           >
@@ -50,7 +54,7 @@ const UserInfoCard = ({
           </Button>
         </div>
         <Button
-          onClick={() => setAddBalance('sub')}
+          onClick={ChangeViewTypeSub}
           className={classes.buttonWithDraw}
           variant="contained"
         >

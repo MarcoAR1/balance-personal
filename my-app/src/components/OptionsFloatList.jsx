@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { MenuItem, Menu, IconButton } from '@material-ui/core/'
 import MenuIcon from '@material-ui/icons/Menu'
-import useUser from '../hooks/useUser'
 
-const MenuFloatList = () => {
+const OptionsFloatList = () => {
   const [anchorEl, setAnchorEl] = useState(null)
-  const { handleStateLogOut } = useUser()
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -14,10 +13,7 @@ const MenuFloatList = () => {
     setAnchorEl(null)
   }
 
-  const handleLogOut = () => {
-    window.localStorage.removeItem('infoUser')
-    handleStateLogOut()
-  }
+  const handleLogOut = () => {}
 
   return (
     <div>
@@ -31,12 +27,12 @@ const MenuFloatList = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>Date</MenuItem>
+        <MenuItem onClick={handleClose}>Category</MenuItem>
+        <MenuItem onClick={handleLogOut}>Type</MenuItem>
       </Menu>
     </div>
   )
 }
 
-export default MenuFloatList
+export default OptionsFloatList

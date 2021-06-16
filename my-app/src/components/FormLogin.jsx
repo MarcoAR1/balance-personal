@@ -3,8 +3,11 @@ import { Button, Card, TextField, Typography } from '@material-ui/core'
 import useStyles from '../styles/FormLoginStyle'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import Login from '../services/login'
+import useUser from '../hooks/useUser'
+import { setTokens } from '../services/balances'
 
-const FormLogin = ({ handleChangeUser, setTokens }) => {
+const FormLogin = () => {
+  const { handleStateLogIn } = useUser()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [messageNotification, setMessageNotification] = useState('')
@@ -26,7 +29,7 @@ const FormLogin = ({ handleChangeUser, setTokens }) => {
     }
     window.localStorage.setItem('infoUser', JSON.stringify(data))
     setTokens(data.token)
-    return handleChangeUser(data)
+    return handleStateLogIn(data)
   }
 
   const handleMessageNotification = (message) => {
