@@ -1,29 +1,26 @@
-import { useEffect } from 'react'
 import { UserLogIn, UserLogOut } from '../reducers/userReducer'
-import { setTokens } from '../services/balances'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { getBalanceRecord, getTotalBalance } from '../services/balances'
+import { getAllRecord, getBalance } from '../reducers/balanceReducer'
 
 const useUser = () => {
-  const userInfo = useSelector((state) => state.user)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    const userData = window.localStorage.getItem('infoUser')
-    if (userData) {
-      setTokens(JSON.parse(userData).token)
-      dispatch(UserLogIn(JSON.parse(userData)))
-    }
-  }, [dispatch])
 
   const handleStateLogIn = (data) => {
     dispatch(UserLogIn(data))
+    getBalanceRecord().then((records) => {
+      dispatch(getAllRecord(records))
+    })
+    getTotalBalance().then((total) => {
+      dispatch(getBalance(total[0].amount))
+    })
   }
 
   const handleStateLogOut = () => {
     dispatch(UserLogOut())
   }
 
-  return { userInfo, handleStateLogIn, handleStateLogOut }
+  return { handleStateLogIn, handleStateLogOut }
 }
 
 export default useUser

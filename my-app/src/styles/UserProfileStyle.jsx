@@ -1,15 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
-  containerFrom: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: '20px',
   },
   input: {
-    marginBottom: '20px',
+    margin: '15px 0 0 0'
   },
 }))
 

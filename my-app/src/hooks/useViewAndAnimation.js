@@ -6,7 +6,7 @@ import {
   ActiveLeft,
   ActiveLeft2,
 } from '../reducers/animationReducer'
-import { viewTypeHome, viewTypeAdd, viewTypeSub } from '../reducers/viewReducer'
+import { viewTypeHome, viewTypeAdd, viewTypeSub, viewTypeProfile } from '../reducers/viewReducer'
 
 export const useViewAndAnimation = () => {
   const animation = useSelector(({ animation }) => animation.Home)
@@ -43,6 +43,9 @@ export const useViewAndAnimation = () => {
   const ChangeViewTypeHome = () => {
     handleChangeView()
   }
+  const ChangeViewTypeProfile = () => {
+    handleChangeView(viewTypeProfile())
+  }
 
   return {
     animation,
@@ -50,5 +53,6 @@ export const useViewAndAnimation = () => {
     ChangeViewTypeAdd,
     ChangeViewTypeSub,
     ChangeViewTypeHome,
+    ChangeViewTypeProfile
   }
 }

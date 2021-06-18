@@ -7,15 +7,12 @@ import { useRecordsAnimation } from '../hooks/useRecordsAnimation'
 import '../styles/App.css'
 
 const ItemRecord = () => {
+  const balance = useSelector((state) => state.balance.Record)
   const classes = useStyles()
-  const {
-    balance,
-    deleteTargetSeelction,
-    handleDeleteRecord,
-    currentTargetSelection,
-  } = useBalance()
+  const { deleteTargetSeelction, handleDeleteRecord, currentTargetSelection } =
+    useBalance()
   const targetDelete = useSelector(({ balance }) => balance.targetDelete)
-  const { handleAnimationRecord, handleUnFocused } = useRecordsAnimation()
+  const { handleAnimationRecord } = useRecordsAnimation()
 
   return (
     <>
@@ -29,7 +26,7 @@ const ItemRecord = () => {
               key={balance_id}
               id={balance_id}
             >
-              <div className={classes.record}>
+              <div className={classes.record} id={balance_id + 'two'}>
                 <div
                   onClick={() => {
                     currentTargetSelection(balance_id)
@@ -58,14 +55,7 @@ const ItemRecord = () => {
               key={balance_id}
               id={balance_id}
             >
-              <div
-                onBlur={() =>
-                  handleUnFocused(balance_id, () => {
-                    deleteTargetSeelction('')
-                  })
-                }
-                className={classes.record}
-              >
+              <div className={classes.record} id={balance_id + 'two'}>
                 <div className={classes.text}>Delete Record?</div>
                 <Button
                   onClick={() => {

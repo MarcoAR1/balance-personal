@@ -1,21 +1,13 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
-  getAllRecord,
-  getBalance,
   deleteRecord,
   addNewRecord,
   targetRecord,
   targetDeleteRecord,
 } from '../reducers/balanceReducer'
-import {
-  deleteRecordId,
-  getBalanceRecord,
-  getTotalBalance,
-} from '../services/balances'
+import { deleteRecordId } from '../services/balances'
 
 const useBalance = () => {
-  const balance = useSelector((state) => state.balance.Record)
   const dispatch = useDispatch()
   const handleDeleteRecord = async (id) => {
     const req = await deleteRecordId(id)
@@ -39,19 +31,9 @@ const useBalance = () => {
     dispatch(addNewRecord(data))
   }
 
-  useEffect(() => {
-    getBalanceRecord().then((records) => {
-      dispatch(getAllRecord(records))
-    })
-    getTotalBalance().then((total) => {
-      dispatch(getBalance(total[0].amount))
-    })
-  }, [dispatch])
-
   return {
     deleteTargetSeelction,
     currentTargetSelection,
-    balance,
     handleDeleteRecord,
     addRecord,
   }

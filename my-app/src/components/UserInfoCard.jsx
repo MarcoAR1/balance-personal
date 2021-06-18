@@ -3,15 +3,15 @@ import React from 'react'
 import Graphic from './Graphic'
 import useStyles from '../styles/UserInfoCardStyle'
 import '../styles/App.css'
-import MenuFloatList from './MenuFloatList'
+import UserMenuFloatList from './UserMenuFloatList'
 import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
 import { useSelector } from 'react-redux'
 
 const UserInfoCard = () => {
+  const userInfo = useSelector(({ user }) => user)
   const { animation, ChangeViewTypeAdd, ChangeViewTypeSub } =
     useViewAndAnimation()
   const balanceTotal = useSelector(({ balance }) => balance.Balance)
-  const userInfo = useSelector(({ user }) => user)
   const classes = useStyles()
 
   return (
@@ -30,7 +30,7 @@ const UserInfoCard = () => {
           >
             {userInfo.name}
           </Typography>
-          <MenuFloatList />
+          <UserMenuFloatList />
         </div>
         <Typography
           className={classes.totalBalance}

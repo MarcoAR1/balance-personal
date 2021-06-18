@@ -1,20 +1,13 @@
-import {
-  Button,
-  Card,
-  FormControl,
-  InputLabel,
-  Select,
-  TextField,
-  Typography,
-} from '@material-ui/core'
+import { FormControl, InputLabel, Select, TextField } from '@material-ui/core'
 import React from 'react'
 import useBalance from '../hooks/useBalance'
 import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
 import { category, addNewRecord } from '../services/balances'
 import useStyles from '../styles/FormBalanceStyle'
+import CardHome from './CardHome'
 
 const FormBalance = () => {
-  const { view, animation, ChangeViewTypeHome } = useViewAndAnimation()
+  const { view, ChangeViewTypeHome } = useViewAndAnimation()
   const { addRecord } = useBalance()
   const classes = useStyles()
 
@@ -52,16 +45,11 @@ const FormBalance = () => {
   }
 
   return (
-    <Card
-      className={`${classes.container} ${animation.rightTwo && 'flip-right2'} ${
-        animation.leftOne && 'flip-left'
-      }`}
+    <CardHome
+      CancelButton={{ function: ChangeViewTypeHome, text: 'Cancel' }}
+      SaveButton={{ text: 'Save', form: 'newRecord', type: 'submit' }}
+      title="New Record"
     >
-      <div className={classes.containerTitle}>
-        <Typography align="center" variant="h5" color="initial">
-          New Record
-        </Typography>
-      </div>
       <form
         id="newRecord"
         onSubmit={handleFormSubmit}
@@ -92,26 +80,7 @@ const FormBalance = () => {
           <TextField type="textArea" id="description" label="Description" />
         )}
       </form>
-      <div className={classes.containerButtons}>
-        <div className={classes.containerButtonCancel}>
-          <Button
-            onClick={ChangeViewTypeHome}
-            className={classes.buttonCancel}
-            variant="contained"
-          >
-            cancel
-          </Button>
-        </div>
-        <Button
-          type="submit"
-          form="newRecord"
-          className={classes.buttonSave}
-          variant="contained"
-        >
-          save
-        </Button>
-      </div>
-    </Card>
+    </CardHome>
   )
 }
 

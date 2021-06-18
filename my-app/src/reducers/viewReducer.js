@@ -2,11 +2,12 @@ const ACTION_TYPE = {
   typeAdd: '@view/add',
   typeSub: '@view/sub',
   typeHome: '@view/home',
+  typeProfile: '@view/profile',
 }
 
 export const viewReducer = (
   state = {
-    userCard: false,
+    userCard: 'Home',
   },
   { type, payload }
 ) => {
@@ -18,6 +19,9 @@ export const viewReducer = (
   }
 
   if (type === ACTION_TYPE.typeSub) {
+    return Object.assign(state, payload)
+  }
+  if (type === ACTION_TYPE.typeProfile) {
     return Object.assign(state, payload)
   }
 
@@ -43,6 +47,16 @@ export const viewTypeSub = () => {
 export const viewTypeHome = () => {
   return {
     type: ACTION_TYPE.typeHome,
-    payload: { userCard: false },
+    payload: {
+      userCard: 'Home',
+    },
+  }
+}
+export const viewTypeProfile = () => {
+  return {
+    type: ACTION_TYPE.typeProfile,
+    payload: {
+      userCard: 'profile',
+    },
   }
 }

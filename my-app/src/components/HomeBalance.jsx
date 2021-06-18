@@ -5,11 +5,11 @@ import RecordBalance from './RecordBalance'
 import UserInfoCard from './UserInfoCard'
 import FormBalance from './FormBalance'
 import { useSelector } from 'react-redux'
+import UserProfile from './UserProfile'
 
 const HomeBalance = () => {
   const view = useSelector(({ view }) => view.userCard)
   const classes = useStyles()
-
   return (
     <div className={classes.container}>
       <div className={classes.title}>
@@ -17,7 +17,9 @@ const HomeBalance = () => {
       </div>
       <div className={classes.containerApp}>
         <div className={classes.userInfoContainer}>
-          {view ? <FormBalance /> : <UserInfoCard />}
+          {view === 'Home' && <UserInfoCard />}
+          {(view === 'add' || view === 'sub') && <FormBalance />}
+          {view === 'profile' && <UserProfile />}
           <div className={classes.graphicInfo}></div>
         </div>
 

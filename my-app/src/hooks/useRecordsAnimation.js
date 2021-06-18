@@ -5,9 +5,11 @@ export const useRecordsAnimation = () => {
       setTimeout(() => {
         fun()
         document.getElementById(balance_id).classList.toggle('flip-left2')
+        document.getElementById(balance_id + 'two').style.display = 'none'
         setTimeout(() => {
           document.getElementById(balance_id).classList.toggle('flip-left2')
           document.getElementById(balance_id).classList.toggle('flip-left')
+          document.getElementById(balance_id + 'two').style.display = 'flex'
         }, 200)
       }, 200)
       return
@@ -16,19 +18,14 @@ export const useRecordsAnimation = () => {
     setTimeout(() => {
       fun()
       document.getElementById(balance_id).classList.toggle('flip-right2')
+      document.getElementById(balance_id + 'two').style.display = 'none'
       setTimeout(() => {
         document.getElementById(balance_id).classList.toggle('flip-right2')
         document.getElementById(balance_id).classList.toggle('flip-right')
+        document.getElementById(balance_id + 'two').style.display = 'flex'
       }, 200)
     }, 200)
   }
 
-  const handleUnFocused = (balance_id, fun) => {
-    setTimeout(
-      () => handleAnimationRecord(fun, balance_id, true),
-
-      500
-    )
-  }
-  return { handleAnimationRecord, handleUnFocused }
+  return { handleAnimationRecord }
 }
