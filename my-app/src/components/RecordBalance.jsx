@@ -6,7 +6,6 @@ import OptionsFloatList from './OptionsFloatList'
 
 const RocordBalance = () => {
   const classes = useStyles()
-
   return (
     <Card className={classes.container}>
       <div className={classes.containerTitle}>

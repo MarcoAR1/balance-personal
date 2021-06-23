@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux'
 
 const UserInfoCard = () => {
   const userInfo = useSelector(({ user }) => user)
-  const { animation, ChangeViewTypeAdd, ChangeViewTypeSub } =
-    useViewAndAnimation()
+  const { ChangeViewTypeAdd, ChangeViewTypeSub } = useViewAndAnimation()
+  const animation = useSelector(({ animation }) => animation.Home)
   const balanceTotal = useSelector(({ balance }) => balance.Balance)
   const classes = useStyles()
 

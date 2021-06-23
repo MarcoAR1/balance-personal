@@ -57,4 +57,22 @@ balanceRouter.delete('/:id', verifyToken, async (req, res) => {
   res.status(404).json(deleteBalance)
 })
 
+balanceRouter.put('/:id', verifyToken, async (req, res) => {
+  const { id } = req.params
+  const username = req.username
+  const data = {}
+  for (let x in req.body) {
+    if (x === 'username') {
+      continue
+    }
+    data[x] = req.body[x]
+  }
+  const updateBalance = await new Balance({ username }).updateBalance(data, id)
+
+  if (updateBalance.affectedRows) {
+    return res.status(200).json({ message: 'balance update successful' })
+  }
+  res.status(400).json({ message: 'it not possible to update' })
+})
+
 module.exports = balanceRouter

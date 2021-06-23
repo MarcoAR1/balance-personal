@@ -16,7 +16,7 @@ const FormBalance = () => {
     const amount = e.target[0].value ? e.target[0].value : 0
     const categoryOrDescription = e.target[1].value
     const data = {
-      amount,
+      amount: Math.abs(amount),
       type: view,
       description:
         view === 'add'
@@ -49,6 +49,7 @@ const FormBalance = () => {
       CancelButton={{ function: ChangeViewTypeHome, text: 'Cancel' }}
       SaveButton={{ text: 'Save', form: 'newRecord', type: 'submit' }}
       title="New Record"
+      to="Home"
     >
       <form
         id="newRecord"
@@ -60,13 +61,12 @@ const FormBalance = () => {
           type="number"
           id="number"
           label="Amount"
-          onChange={() => {}}
         />
         {view === 'sub' ? (
           <FormControl className={classes.formControl}>
             <InputLabel>Category</InputLabel>
             <Select native defaultValue="">
-              <option aria-label="None" value="" />
+              <option aria-label="None" value="" disabled />
               <optgroup label="Category">
                 {category.map((e) => (
                   <option key={e} value={e}>
@@ -77,7 +77,7 @@ const FormBalance = () => {
             </Select>
           </FormControl>
         ) : (
-          <TextField type="textArea" id="description" label="Description" />
+          <TextField id="description" label="Description" />
         )}
       </form>
     </CardHome>

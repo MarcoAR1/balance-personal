@@ -22,6 +22,10 @@ const MenuComponent = ({ children }) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
       >
         {children}
       </Menu>

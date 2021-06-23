@@ -12,7 +12,11 @@ const useUser = () => {
       dispatch(getAllRecord(records))
     })
     getTotalBalance().then((total) => {
-      dispatch(getBalance(total[0].amount))
+      if (total[0]) {
+        dispatch(getBalance(total[0].amount))
+        return
+      }
+      dispatch(getBalance(0))
     })
   }
 

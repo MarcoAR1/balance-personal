@@ -1,0 +1,10 @@
+PUT http://localhost:3001/api/user/
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hcmlhMTUiLCJuYW1lIjoiTWFyaWEgUml2ZXJvIiwiZW1haWwiOiJtYXJpYTE1QGdtYWlsLmNvbSIsImlhdCI6MTYyNDQyNzEwNCwiZXhwIjoxNjI1NzIzMTA0fQ.5lt47c2i3WH3L-59_hBS_5DleRhzfMbgO4hTUXZav_M
+
+{
+ "username":"Maria15",
+ "password":"123456789",
+ "name":"Maria",
+ "email":"maria15@gmail.com"
+}

@@ -2,8 +2,6 @@ POST  http://localhost:3001/api/login/
 Content-Type:  application/json
 
 {
- "username":"MarcoElDelArcoaaa",
- "password":"61651165161",
- "email":"; DROP TABLE User",
- "name":"Marco"
+ "username":"Maria15",
+ "password":"12345"
 }

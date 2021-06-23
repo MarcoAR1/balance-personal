@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux'
+import { DisabledEntrance } from '../reducers/animationReducer'
 import {
   deleteRecord,
   addNewRecord,
   targetRecord,
   targetDeleteRecord,
 } from '../reducers/balanceReducer'
+import { viewTypeEditRecord } from '../reducers/viewReducer'
 import { deleteRecordId } from '../services/balances'
 
 const useBalance = () => {
@@ -30,12 +32,18 @@ const useBalance = () => {
   const addRecord = (data) => {
     dispatch(addNewRecord(data))
   }
-
+  const ChangeViewTypeEditRecord = () => {
+    dispatch(viewTypeEditRecord())
+    setTimeout(() => {
+      dispatch(DisabledEntrance('Graphic'))
+    }, 200)
+  }
   return {
     deleteTargetSeelction,
     currentTargetSelection,
     handleDeleteRecord,
     addRecord,
+    ChangeViewTypeEditRecord,
   }
 }
 

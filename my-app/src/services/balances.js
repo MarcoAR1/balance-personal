@@ -1,15 +1,27 @@
-const url = 'http://localhost:3001/api/balance'
+import { UserLogOut } from '../reducers/userReducer'
+import store from '../store'
+
+const url = 'http://localhost:3001/api/balance/'
 
 let userToken = ''
 const setTokens = (string) => {
   userToken = 'Bearer ' + string
+}
+store.subscribe(() => {
+  let { user } = store.getState()
+  setTokens(user.token)
+})
+
+const status401LogOut = () => {
+  window.localStorage.clear()
+  store.dispatch(UserLogOut())
 }
 
 const getTotalBalance = async () => {
   const res = await new Promise((resolve, reject) => {
     const load = (e) => {
       if (e.currentTarget.status === 401) {
-        window.localStorage.clear()
+        status401LogOut()
       }
       resolve(JSON.parse(e.currentTarget.responseText))
     }
@@ -28,7 +40,7 @@ const deleteRecordId = async (id) => {
   const res = await new Promise((resolve, reject) => {
     const load = (e) => {
       if (e.currentTarget.status === 401) {
-        window.localStorage.clear()
+        status401LogOut()
       }
       resolve(e.currentTarget)
     }
@@ -48,7 +60,7 @@ const getBalanceRecord = async () => {
   const res = await new Promise((resolve, reject) => {
     const load = (e) => {
       if (e.currentTarget.status === 401) {
-        window.localStorage.clear()
+        status401LogOut()
       }
       resolve(JSON.parse(e.currentTarget.responseText))
     }
@@ -69,12 +81,34 @@ const addNewRecord = async (items) => {
   const res = await new Promise((resolve, reject) => {
     const load = (e) => {
       if (e.currentTarget.status === 401) {
-        window.localStorage.clear()
+        status401LogOut()
       }
       resolve(JSON.parse(e.currentTarget.responseText))
     }
     const req = new XMLHttpRequest()
     req.open('POST', url, true)
+    req.setRequestHeader('Content-Type', 'application/json')
+    req.setRequestHeader('Authorization', userToken)
+    req.onloadend = load
+    req.onerror = reject
+    req.send(JSON.stringify(data))
+  })
+  return res
+}
+
+const updateRecord = async (data, id) => {
+  const res = await new Promise((resolve, reject) => {
+    const load = (e) => {
+      if (e.currentTarget.status === 401) {
+        status401LogOut()
+      }
+      if (e.currentTarget.status === 200) {
+        resolve(JSON.parse(e.currentTarget.responseText).message)
+      }
+      resolve('Record not possible to update')
+    }
+    const req = new XMLHttpRequest()
+    req.open('PUT', url + id, true)
     req.setRequestHeader('Content-Type', 'application/json')
     req.setRequestHeader('Authorization', userToken)
     req.onloadend = load
@@ -97,7 +131,7 @@ const category = [
   'Other',
 ]
 export {
-  setTokens,
+  updateRecord,
   getTotalBalance,
   getBalanceRecord,
   deleteRecordId,

@@ -5,54 +5,78 @@ import {
   ActiveFinish,
   ActiveLeft,
   ActiveLeft2,
+  ActiveExit,
 } from '../reducers/animationReducer'
-import { viewTypeHome, viewTypeAdd, viewTypeSub, viewTypeProfile } from '../reducers/viewReducer'
+import {
+  viewTypeHome,
+  viewTypeAdd,
+  viewTypeSub,
+  viewTypeProfile,
+  viewTypeEditRecord,
+  viewTypeWithoutGraphic,
+} from '../reducers/viewReducer'
 
 export const useViewAndAnimation = () => {
-  const animation = useSelector(({ animation }) => animation.Home)
   const view = useSelector(({ view }) => view.userCard)
   const dispatch = useDispatch()
-  const handleChangeView = (value) => {
+
+  const handleChangeView = (fun, string, value = true) => {
     if (!value) {
-      dispatch(ActiveLeft('Home'))
+      dispatch(ActiveLeft(string))
       setTimeout(() => {
-        dispatch(viewTypeHome())
-        dispatch(ActiveLeft2('Home'))
+        dispatch(fun)
+        dispatch(ActiveLeft2(string))
       }, 200)
       setTimeout(() => {
-        dispatch(ActiveFinish('Home'))
+        dispatch(ActiveFinish(string))
       }, 300)
       return
     }
-    dispatch(ActiveRight('Home'))
+    dispatch(ActiveRight(string))
     setTimeout(() => {
-      dispatch(value)
-      dispatch(ActiveRight2('Home'))
+      dispatch(fun)
+      dispatch(ActiveRight2(string))
     }, 200)
     setTimeout(() => {
-      dispatch(ActiveFinish('Home'))
+      dispatch(ActiveFinish(string))
     }, 300)
   }
 
+  const handleChangeViewGraphic = (fun, string, value = true) => {
+    dispatch(ActiveExit(string))
+    setTimeout(() => {
+      dispatch(ActiveFinish(string))
+      dispatch(fun)
+    }, 200)
+    return
+  }
+
   const ChangeViewTypeAdd = () => {
-    handleChangeView(viewTypeAdd())
+    handleChangeView(viewTypeAdd(), 'Home')
   }
   const ChangeViewTypeSub = () => {
-    handleChangeView(viewTypeSub())
+    handleChangeView(viewTypeSub(), 'Home')
   }
   const ChangeViewTypeHome = () => {
-    handleChangeView()
+    handleChangeView(viewTypeHome(), 'Home', false)
   }
   const ChangeViewTypeProfile = () => {
-    handleChangeView(viewTypeProfile())
+    handleChangeView(viewTypeProfile(), 'Home')
+  }
+  const ChangeViewTypeEditRecord = () => {
+    handleChangeViewGraphic(viewTypeEditRecord(), 'Graphic')
+  }
+  const ChangeViewTypeWithoutGraphic = () => {
+    handleChangeViewGraphic(viewTypeWithoutGraphic(), 'Graphic')
   }
 
   return {
-    animation,
     view,
     ChangeViewTypeAdd,
     ChangeViewTypeSub,
     ChangeViewTypeHome,
-    ChangeViewTypeProfile
+    ChangeViewTypeProfile,
+    ChangeViewTypeEditRecord,
+    ChangeViewTypeWithoutGraphic,
   }
 }

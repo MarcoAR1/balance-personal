@@ -47,6 +47,18 @@ class Balance {
     return result[0]
   }
 
+  async updateBalance(data, id) {
+    const result = await sql
+      .promise()
+      .query('UPDATE Balance SET ? WHERE username = ? and balance_id = ?', [
+        data,
+        this.username,
+        id,
+      ])
+    sql.end
+    return result[0]
+  }
+
   async deleteaBalance(balance_id, username) {
     const result = await sql
       .promise()

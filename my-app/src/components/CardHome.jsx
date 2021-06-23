@@ -8,15 +8,21 @@ const CardHome = ({
   SaveButton = {},
   CancelButton = {},
   title = '',
+  style,
+  to = '',
+  ClassInsert = '',
 }) => {
-  const animation = useSelector(({ animation }) => animation.Home)
+  const animation = useSelector(({ animation }) => animation)
   const classes = useStyles()
 
   return (
     <Card
-      className={`${classes.container} ${animation.rightTwo && 'flip-right2'} ${
-        animation.leftOne && 'flip-left'
-      }`}
+      className={`${classes.container} ${
+        animation[to] && animation[to].rightTwo && 'flip-right2'
+      } ${
+        animation[to] && animation[to].leftOne && 'flip-left'
+      } ${ClassInsert}`}
+      style={style}
     >
       <div className={classes.containerTitle}>
         <Typography align="center" variant="h5" color="initial">
@@ -28,6 +34,7 @@ const CardHome = ({
         <div className={classes.containerButtonCancel}>
           <Button
             onClick={CancelButton.function}
+            style={CancelButton.style}
             className={classes.buttonCancel}
             variant="contained"
             disabled={CancelButton.disabled}
@@ -38,6 +45,7 @@ const CardHome = ({
         <Button
           type={SaveButton.type}
           form={SaveButton.form}
+          style={SaveButton.style}
           onClick={SaveButton.function}
           className={classes.buttonSave}
           variant="contained"

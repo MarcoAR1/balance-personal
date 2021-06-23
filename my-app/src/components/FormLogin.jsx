@@ -4,7 +4,6 @@ import useStyles from '../styles/FormLoginStyle'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import Login from '../services/login'
 import useUser from '../hooks/useUser'
-import { setTokens } from '../services/balances'
 
 const FormLogin = () => {
   const { handleStateLogIn } = useUser()
@@ -28,7 +27,6 @@ const FormLogin = () => {
       return handleMessageNotification(data.message)
     }
     window.localStorage.setItem('infoUser', JSON.stringify(data))
-    setTokens(data.token)
     return handleStateLogIn(data)
   }
 

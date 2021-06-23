@@ -13,7 +13,7 @@ const UserMenuFloatList = () => {
   }
 
   return (
-    <MenuComponent>
+    <MenuComponent >
       <MenuItem onClick={ChangeViewTypeProfile}>Profile</MenuItem>
       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
     </MenuComponent>

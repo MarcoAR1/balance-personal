@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
   itemRecordBalance: {
-    marginTop: '10px',
+    marginBottom: '10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',

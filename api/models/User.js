@@ -48,6 +48,14 @@ class User {
     return result
   }
 
+  async updateUser(data) {
+    const result = await sql
+      .promise()
+      .query('UPDATE User SET ? WHERE username = ?', [data, this.username])
+    sql.end
+    return result[0]
+  }
+
   validate() {
     if (this.username < 3) {
       return false
