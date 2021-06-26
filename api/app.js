@@ -2,7 +2,6 @@ const express = require('express')
 const path = require('path')
 require('express-async-errors')
 const cors = require('cors')
-const morgan = require('morgan')
 const { handleError } = require('./utils/middleware/handleError.js')
 const userRouter = require('./controllers/user.js')
 const loginRouter = require('./controllers/login.js')
@@ -15,6 +14,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 if (process.env.NODE_ENV === 'development') {
+  const morgan = require('morgan')
   app.use(
     morgan(
       ':method :url :status :res[content-length] - :response-time ms :json'
