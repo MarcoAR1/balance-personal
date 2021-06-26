@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import useBalance from '../hooks/useBalance'
 import useStyles from '../styles/ItemRecordStyle'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,7 +10,30 @@ import '../styles/App.css'
 import { filterPaginations } from '../reducers/balanceReducer'
 
 const ItemRecord = () => {
-  const balance = useSelector(({ balance }) => balance.Record)
+  const balance = useSelector(({ balance, filter }) =>
+    balance.Record.filter((e) => {
+      for (let x in filter) {
+        if (x === 'Date') {
+          if (filter[x].Start) {
+            if (e.created_at > new Date(filter[x].Start).toISOString())
+              return false
+          }
+          if (filter[x].End) {
+            if (e.created_at < new Date(filter[x].End).toISOString())
+              return false
+          }
+        }
+        if (x === 'Type') {
+          if (e.type !== filter[x]) return false
+        }
+        if (x === 'Category') {
+          const currentCategory = JSON.parse(e.description).category
+          if (currentCategory !== filter[x]) return false
+        }
+      }
+      return true
+    })
+  )
   const paginationPosition = useSelector(
     ({ balance }) => balance.filters.paginationPosition
   )
@@ -25,9 +48,10 @@ const ItemRecord = () => {
   const currentTarget = useSelector(({ balance }) => balance.currentTarget)
   const { handleAnimationRecord } = useRecordsAnimation()
   const { ChangeViewTypeWithoutGraphic } = useViewAndAnimation()
+  const [disabledButton, setDisabledButton] = useState(false)
   const dispatch = useDispatch()
 
-  const handlePaginationChange = (event, newPage) => {
+  const handlePaginationChange = (_, newPage) => {
     dispatch(filterPaginations(newPage))
   }
 
@@ -102,12 +126,13 @@ const ItemRecord = () => {
                 <Button
                   style={{ marginLeft: 10 }}
                   onClick={() => {
+                    setDisabledButton(true)
                     handleAnimationRecord(
                       () => {
                         if (currentTarget === targetDelete) {
                           ChangeViewTypeWithoutGraphic()
                         }
-                        handleDeleteRecord(balance_id)
+                        handleDeleteRecord(balance_id, setDisabledButton)
                       },
                       balance_id,
                       true
@@ -116,6 +141,7 @@ const ItemRecord = () => {
                   className={classes.deleteButton}
                   color="secondary"
                   variant="outlined"
+                  disabled={disabledButton}
                 >
                   Yes
                 </Button>

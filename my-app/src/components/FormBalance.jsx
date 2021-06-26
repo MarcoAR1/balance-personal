@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, TextField } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import useBalance from '../hooks/useBalance'
 import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
 import { category, addNewRecord } from '../services/balances'
@@ -8,11 +8,13 @@ import CardHome from './CardHome'
 
 const FormBalance = () => {
   const { view, ChangeViewTypeHome } = useViewAndAnimation()
+  const [disabledButton, setDisabledButton] = useState(false)
   const { addRecord } = useBalance()
   const classes = useStyles()
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
+    setDisabledButton(true)
     const amount = e.target[0].value ? e.target[0].value : 0
     const categoryOrDescription = e.target[1].value
     const data = {
@@ -21,7 +23,9 @@ const FormBalance = () => {
       description:
         view === 'add'
           ? JSON.stringify({ description: categoryOrDescription })
-          : JSON.stringify({ category: categoryOrDescription }),
+          : JSON.stringify({
+              category: categoryOrDescription ? categoryOrDescription : 'Other',
+            }),
     }
     const res = await addNewRecord(data)
 
@@ -47,7 +51,12 @@ const FormBalance = () => {
   return (
     <CardHome
       CancelButton={{ function: ChangeViewTypeHome, text: 'Cancel' }}
-      SaveButton={{ text: 'Save', form: 'newRecord', type: 'submit' }}
+      SaveButton={{
+        text: 'Save',
+        form: 'newRecord',
+        type: 'submit',
+        disabled: disabledButton,
+      }}
       title="New Record"
       to="Home"
     >

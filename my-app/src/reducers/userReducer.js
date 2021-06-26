@@ -1,18 +1,18 @@
 const ACTION_TYPE = {
-  logIn: '@user/logIn',
-  logOut: '@user/logOut',
-  updateUser: '@user/updateUser',
+  LogIn: '@user/logIn',
+  LogOut: '@user/logOut',
+  UpdateUser: '@user/updateUser',
 }
 
 export const userReducer = (state = {}, { type, peyload }) => {
-  if (type === ACTION_TYPE.logIn) {
+  if (type === ACTION_TYPE.LogIn) {
     return peyload
   }
-  if (type === ACTION_TYPE.logOut) {
+  if (type === ACTION_TYPE.LogOut) {
     return peyload
   }
-  if (type === ACTION_TYPE.updateUser) {
-    return Object.assign(state, peyload)
+  if (type === ACTION_TYPE.UpdateUser) {
+    return Object.assign({ ...state }, peyload)
   }
 
   return state
@@ -20,19 +20,19 @@ export const userReducer = (state = {}, { type, peyload }) => {
 
 export const UserLogIn = (data) => {
   return {
-    type: ACTION_TYPE.logIn,
+    type: ACTION_TYPE.LogIn,
     peyload: data,
   }
 }
 export const UserLogOut = () => {
   return {
-    type: ACTION_TYPE.logOut,
+    type: ACTION_TYPE.LogOut,
     peyload: {},
   }
 }
 export const UpdateUserState = (data) => {
   return {
-    type: ACTION_TYPE.updateUser,
+    type: ACTION_TYPE.UpdateUser,
     peyload: data,
   }
 }

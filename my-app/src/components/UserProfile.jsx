@@ -24,6 +24,7 @@ const UserProfile = () => {
     email: { value: userInfo.email },
     username: { value: userInfo.username },
   })
+  const [disabledButton, setDisabledButton] = useState(false)
   const { ChangeViewTypeHome } = useViewAndAnimation()
   const classes = useStyles()
 
@@ -45,6 +46,7 @@ const UserProfile = () => {
 
   const handleSubmitSaveEditUserInfo = async (e) => {
     e.preventDefault()
+    setDisabledButton(true)
     let data = {}
     for (let x in editUserInfo) {
       if (editUserInfo[x] && editUserInfo[x].value) {
@@ -55,8 +57,10 @@ const UserProfile = () => {
         data[x] = currentValue
       }
     }
+    if (!Object.keys(data).length) {
+      return ChangeViewTypeHome()
+    }
     const res = await UpdateUser(data)
-
     if (res === 'User updated successfully') {
       if (data.username) {
         window.localStorage.clear()
@@ -74,7 +78,12 @@ const UserProfile = () => {
         function: ChangeViewTypeHome,
         text: 'Cancel',
       }}
-      SaveButton={{ form: 'form-edit-userinfo', type: 'submit', text: 'Save' }}
+      SaveButton={{
+        form: 'form-edit-userinfo',
+        type: 'submit',
+        text: 'Save',
+        disabled: disabledButton,
+      }}
       title="Datos de usuario"
       to="Home"
     >

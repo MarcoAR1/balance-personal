@@ -1,25 +1,25 @@
 const ACTION_TYPE = {
-  getBalance: '@balance/getBalance',
-  getAllRecord: '@balance/getAllRecord',
-  addRecord: '@balance/addRecord',
-  subRecord: '@balance/subRecord',
-  currentTarget: '@balance/currentTarget',
-  targetDelete: '@balance/targetDelete',
-  updateBalance: '@balance/updateBalance',
-  filterPaginations: '@balance/filterPaginations',
+  GetBalance: '@balance/getBalance',
+  GetAllRecord: '@balance/getAllRecord',
+  AddRecord: '@balance/addRecord',
+  SubRecord: '@balance/subRecord',
+  CurrentTarget: '@balance/currentTarget',
+  TargetDelete: '@balance/targetDelete',
+  UpdateBalance: '@balance/updateBalance',
+  FilterPaginations: '@balance/filterPaginations',
 }
 
 export const balanceReducer = (
   state = { Record: [], filters: { paginationPosition: 1 } },
   { type, payload }
 ) => {
-  if (type === ACTION_TYPE.getBalance) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.GetBalance) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.getAllRecord) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.GetAllRecord) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.addRecord) {
+  if (type === ACTION_TYPE.AddRecord) {
     const { Record } = payload
     const copyState = { ...state }
     copyState.Record.splice(0, 0, Record)
@@ -28,7 +28,7 @@ export const balanceReducer = (
       : (copyState.Balance -= parseInt(Record.amount))
     return copyState
   }
-  if (type === ACTION_TYPE.subRecord) {
+  if (type === ACTION_TYPE.SubRecord) {
     const { id } = payload
     const copyState = { ...state }
     const recordFilter = state.Record.filter((record) => {
@@ -44,13 +44,13 @@ export const balanceReducer = (
     return copyState
   }
 
-  if (type === ACTION_TYPE.currentTarget) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.CurrentTarget) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.targetDelete) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TargetDelete) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.updateBalance) {
+  if (type === ACTION_TYPE.UpdateBalance) {
     const { data, id } = payload
     const copy = { ...state }
     const record = copy.Record.find((items) => items.balance_id === id)
@@ -70,8 +70,8 @@ export const balanceReducer = (
     return copy
   }
 
-  if (type === ACTION_TYPE.filterPaginations) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.FilterPaginations) {
+    return Object.assign({ ...state }, payload)
   }
 
   return state
@@ -79,47 +79,47 @@ export const balanceReducer = (
 
 export const getBalance = (data) => {
   return {
-    type: ACTION_TYPE.getBalance,
+    type: ACTION_TYPE.GetBalance,
     payload: { Balance: data },
   }
 }
 
 export const getAllRecord = (data) => {
   return {
-    type: ACTION_TYPE.getAllRecord,
+    type: ACTION_TYPE.GetAllRecord,
     payload: { Record: data },
   }
 }
 
 export const addNewRecord = (data) => {
   return {
-    type: ACTION_TYPE.addRecord,
+    type: ACTION_TYPE.AddRecord,
     payload: { Record: data },
   }
 }
 export const deleteRecord = (data) => {
   return {
-    type: ACTION_TYPE.subRecord,
+    type: ACTION_TYPE.SubRecord,
     payload: { id: data },
   }
 }
 export const targetDeleteRecord = (data) => {
   return {
-    type: ACTION_TYPE.targetDelete,
+    type: ACTION_TYPE.TargetDelete,
     payload: { targetDelete: data },
   }
 }
 
 export const targetRecord = (data) => {
   return {
-    type: ACTION_TYPE.currentTarget,
+    type: ACTION_TYPE.CurrentTarget,
     payload: { currentTarget: data },
   }
 }
 
 export const updateBalance = (data, id) => {
   return {
-    type: ACTION_TYPE.updateBalance,
+    type: ACTION_TYPE.UpdateBalance,
     payload: {
       data,
       id,
@@ -128,7 +128,7 @@ export const updateBalance = (data, id) => {
 }
 export const filterPaginations = (paginationPosition) => {
   return {
-    type: ACTION_TYPE.filterPaginations,
+    type: ACTION_TYPE.FilterPaginations,
     payload: { filters: { paginationPosition } },
   }
 }

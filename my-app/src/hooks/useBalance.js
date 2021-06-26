@@ -11,16 +11,19 @@ import { deleteRecordId } from '../services/balances'
 
 const useBalance = () => {
   const dispatch = useDispatch()
-  const handleDeleteRecord = async (id) => {
+  const handleDeleteRecord = async (id, fun) => {
     const req = await deleteRecordId(id)
     if (!req.responseText) {
+      fun(false)
       return 'error'
     }
     const res = JSON.parse(req.responseText)
     if (res[0].affectedRows !== 1) {
+      fun(false)
       return 'error'
     }
     dispatch(deleteRecord(id))
+    fun(false)
   }
 
   const currentTargetSelection = (data) => {

@@ -10,13 +10,13 @@ body {
   background: linear-gradient(to right, #523be5, #2d25cb);
   position: relative;
   overflow: auto;
+  z-index: 0;
 }
 
 .banner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 15%;
 }
 
 .banner_img {
@@ -33,11 +33,10 @@ body {
 .burbuja {
   border-radius: 50%;
   background: #fff;
-  opacity: 0.3;
-
+  opacity: 0;
   position: absolute;
   bottom: -150;
-
+  z-index: -1;
   animation: burbujas 3s linear infinite;
 }
 

@@ -1,0 +1,25 @@
+#tooltip {
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  text-align: center;
+  text-transform: capitalize;
+  pointer-events: none;
+  background: aqua;
+  transition: all 0.5s;
+  padding: 5px;
+  border-radius: 15px;
+}
+#tooltip p {
+  font-size: 12px;
+}
+.iconCategoryContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: stretch;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+}

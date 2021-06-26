@@ -1,11 +1,11 @@
 const ACTION_TYPE = {
-  typeAdd: '@view/add',
-  typeSub: '@view/sub',
-  typeHome: '@view/home',
-  typeProfile: '@view/profile',
-  typeEditRecord: '@view/editRecord',
-  typeWithoutGraphic: '@view/withoutGraphic',
-  typeGraphic: '@view/graphic',
+  TypeAdd: '@view/add',
+  TypeSub: '@view/sub',
+  TypeHome: '@view/home',
+  TypeProfile: '@view/profile',
+  TypeEditRecord: '@view/editRecord',
+  TypeWithoutGraphic: '@view/withoutGraphic',
+  TypeGraphic: '@view/graphic',
 }
 
 export const viewReducer = (
@@ -14,26 +14,26 @@ export const viewReducer = (
   },
   { type, payload }
 ) => {
-  if (type === ACTION_TYPE.typeHome) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TypeHome) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.typeAdd) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TypeAdd) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.typeSub) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TypeSub) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.typeProfile) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TypeProfile) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.typeEditRecord) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TypeEditRecord) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.typeGraphic) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TypeGraphic) {
+    return Object.assign({ ...state }, payload)
   }
-  if (type === ACTION_TYPE.typeWithoutGraphic) {
-    return Object.assign(state, payload)
+  if (type === ACTION_TYPE.TypeWithoutGraphic) {
+    return Object.assign({ ...state }, payload)
   }
 
   return state
@@ -41,7 +41,7 @@ export const viewReducer = (
 
 export const viewTypeAdd = () => {
   return {
-    type: ACTION_TYPE.typeAdd,
+    type: ACTION_TYPE.TypeAdd,
     payload: {
       userCard: 'add',
     },
@@ -49,7 +49,7 @@ export const viewTypeAdd = () => {
 }
 export const viewTypeSub = () => {
   return {
-    type: ACTION_TYPE.typeSub,
+    type: ACTION_TYPE.TypeSub,
     payload: {
       userCard: 'sub',
     },
@@ -57,7 +57,7 @@ export const viewTypeSub = () => {
 }
 export const viewTypeHome = () => {
   return {
-    type: ACTION_TYPE.typeHome,
+    type: ACTION_TYPE.TypeHome,
     payload: {
       userCard: 'Home',
     },
@@ -65,7 +65,7 @@ export const viewTypeHome = () => {
 }
 export const viewTypeProfile = () => {
   return {
-    type: ACTION_TYPE.typeProfile,
+    type: ACTION_TYPE.TypeProfile,
     payload: {
       userCard: 'profile',
     },
@@ -73,7 +73,7 @@ export const viewTypeProfile = () => {
 }
 export const viewTypeEditRecord = () => {
   return {
-    type: ACTION_TYPE.typeEditRecord,
+    type: ACTION_TYPE.TypeEditRecord,
     payload: {
       graphicCard: 'editRecord',
     },
@@ -81,7 +81,7 @@ export const viewTypeEditRecord = () => {
 }
 export const viewTypeGraphic = () => {
   return {
-    type: ACTION_TYPE.typeGraphic,
+    type: ACTION_TYPE.TypeGraphic,
     payload: {
       graphicCard: 'Graphic',
     },
@@ -89,7 +89,7 @@ export const viewTypeGraphic = () => {
 }
 export const viewTypeWithoutGraphic = () => {
   return {
-    type: ACTION_TYPE.typeWithoutGraphic,
+    type: ACTION_TYPE.TypeWithoutGraphic,
     payload: {
       graphicCard: '',
     },
