@@ -1,4 +1,4 @@
-const url = 'http://localhost:3001/api/login/'
+const url = '/api/login/'
 
 const Login = async (data) => {
   const res = await new Promise((resolve, reject) => {

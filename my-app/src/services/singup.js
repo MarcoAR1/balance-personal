@@ -1,6 +1,6 @@
 import { UserLogOut } from '../reducers/userReducer'
 import store from '../store'
-const url = 'http://localhost:3001/api/user/'
+const url = '/api/user/'
 let userToken = ''
 const setTokens = (string) => {
   userToken = 'Bearer ' + string

@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 require('express-async-errors')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -13,12 +14,19 @@ const app = express()
 //Middleware
 app.use(cors())
 app.use(express.json())
-app.use(
-  morgan(':method :url :status :res[content-length] - :response-time ms :json')
-)
-morgan.token('json', (req) => {
-  return JSON.stringify(req.body)
-})
+if (process.env.NODE_ENV === 'development') {
+  app.use(
+    morgan(
+      ':method :url :status :res[content-length] - :response-time ms :json'
+    )
+  )
+  morgan.token('json', (req) => {
+    return JSON.stringify(req.body)
+  })
+}
+//Static
+
+app.use('/', express.static(path.join(__dirname, 'build')))
 
 //Routes
 app.use('/api/user', userRouter)

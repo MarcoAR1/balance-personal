@@ -1,7 +1,7 @@
 import { UserLogOut } from '../reducers/userReducer'
 import store from '../store'
 
-const url = 'http://localhost:3001/api/balance/'
+const url = '/api/balance/'
 
 let userToken = ''
 const setTokens = (string) => {
@@ -56,7 +56,7 @@ const deleteRecordId = async (id) => {
 }
 
 const getBalanceRecord = async () => {
-  const urlRecord = url + '/record'
+  const urlRecord = url + 'record'
   const res = await new Promise((resolve, reject) => {
     const load = (e) => {
       if (e.currentTarget.status === 401) {
