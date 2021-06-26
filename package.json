@@ -1,19 +1,33 @@
 {
   "name": "balance-personal",
   "version": "1.0.0",
-  "description": "",
+  "private": "true",
   "workspaces": [
     "api",
     "my-app"
   ],
   "main": "index.js",
+  "engines": {
+    "npm": "^7.9.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm start --workspaces=api",
+    "dev:api": "npm run dev --workspaces=api",
+    "start:app": "npm run start --workspaces=my-app"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0"
   },
-  "proxy": "http://localhost:3001"
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcoAR1/balance-personal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarcoAR1/balance-personal/issues"
+  },
+  "homepage": "https://github.com/MarcoAR1/balance-personal#readme",
+  "description": ""
 }
