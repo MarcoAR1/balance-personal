@@ -1,8 +1,8 @@
 import { Card, Typography } from '@material-ui/core'
 import React from 'react'
 import useStyles from '../styles/RecordBalanceStyle'
-import ItemRecord from './ItemRecord'
-import OptionsFloatList from './OptionsFloatList'
+import ItemRecord from './RecordComponents/ItemRecord'
+import OptionsFloatList from './RecordComponents/OptionsFloatList'
 
 const RocordBalance = () => {
   const classes = useStyles()

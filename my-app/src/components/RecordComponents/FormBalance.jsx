@@ -1,10 +1,10 @@
 import { FormControl, InputLabel, Select, TextField } from '@material-ui/core'
 import React, { useState } from 'react'
-import useBalance from '../hooks/useBalance'
-import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
-import { category, addNewRecord } from '../services/balances'
-import useStyles from '../styles/FormBalanceStyle'
-import CardHome from './CardHome'
+import useBalance from '../../hooks/useBalance'
+import { useViewAndAnimation } from '../../hooks/useViewAndAnimation'
+import { category, addNewRecord } from '../../services/balances'
+import useStyles from '../../styles/FormBalanceStyle'
+import CardHome from '../CardHome'
 
 const FormBalance = () => {
   const { view, ChangeViewTypeHome } = useViewAndAnimation()

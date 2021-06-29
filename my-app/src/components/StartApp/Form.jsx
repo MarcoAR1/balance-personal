@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useStyles from '../styles/FormStyle'
+import useStyles from '../../styles/FormStyle'
 import Button from '@material-ui/core/Button'
 import FormLogin from './FormLogin'
 import FormSingUp from './FormSingUp'

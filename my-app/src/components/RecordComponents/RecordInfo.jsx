@@ -7,13 +7,13 @@ import {
 } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
-import useStyles from '../styles/RecordInfoStyle'
-import CardHome from './CardHome'
+import { useViewAndAnimation } from '../../hooks/useViewAndAnimation'
+import useStyles from '../../styles/RecordInfoStyle'
+import CardHome from '../CardHome'
 import EditIcon from '@material-ui/icons/Edit'
 import CloseIcon from '@material-ui/icons/Close'
-import { category, updateRecord } from '../services/balances'
-import { updateBalance } from '../reducers/balanceReducer'
+import { category, updateRecord } from '../../services/balances'
+import { updateBalance } from '../../reducers/balanceReducer'
 
 const styleDivForm = {
   display: 'flex',
@@ -29,7 +29,7 @@ const RecordInfo = () => {
   )
   const animation = useSelector(({ animation }) => animation.Graphic)
   const [editRecordInfo, setEditRecordInfo] = useState({})
-  const { ChangeViewTypeWithoutGraphic } = useViewAndAnimation()
+  const { ChangeViewTypeWithGraphic } = useViewAndAnimation()
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -88,11 +88,17 @@ const RecordInfo = () => {
       }
       data[x] = currentValue
     }
+
+    if (!Object.keys(data).length) {
+      ChangeViewTypeWithGraphic()
+      return
+    }
+
     const res = await updateRecord(data, record.balance_id)
     if (res === 'balance update successful') {
       dispatch(updateBalance(data, record.balance_id))
     }
-    ChangeViewTypeWithoutGraphic()
+    ChangeViewTypeWithGraphic()
   }
 
   useEffect(() => {
@@ -112,7 +118,7 @@ const RecordInfo = () => {
       title="Record Info"
       CancelButton={{
         text: 'volver',
-        function: ChangeViewTypeWithoutGraphic,
+        function: ChangeViewTypeWithGraphic,
         style: {
           background: 'white',
         },

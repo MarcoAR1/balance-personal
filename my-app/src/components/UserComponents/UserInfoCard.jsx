@@ -1,10 +1,10 @@
 import { Button, Card, Typography } from '@material-ui/core'
 import React from 'react'
-import Graphic from './Graphic'
-import useStyles from '../styles/UserInfoCardStyle'
-import '../styles/App.css'
+import Graphic from '../Graphic'
+import useStyles from '../../styles/UserInfoCardStyle'
+import '../../styles/App.css'
 import UserMenuFloatList from './UserMenuFloatList'
-import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
+import { useViewAndAnimation } from '../../hooks/useViewAndAnimation'
 import { useSelector } from 'react-redux'
 
 const UserInfoCard = () => {

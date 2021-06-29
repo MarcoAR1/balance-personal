@@ -1,18 +1,21 @@
 import { Button } from '@material-ui/core'
 import React, { useState } from 'react'
-import useBalance from '../hooks/useBalance'
-import useStyles from '../styles/ItemRecordStyle'
+import useBalance from '../../hooks/useBalance'
+import useStyles from '../../styles/ItemRecordStyle'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRecordsAnimation } from '../hooks/useRecordsAnimation'
-import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
+import { useRecordsAnimation } from '../../hooks/useRecordsAnimation'
+import { useViewAndAnimation } from '../../hooks/useViewAndAnimation'
 import { Pagination } from '@material-ui/lab'
-import '../styles/App.css'
-import { filterPaginations } from '../reducers/balanceReducer'
+import '../../styles/App.css'
+import { filterPaginations } from '../../reducers/balanceReducer'
 
 const ItemRecord = () => {
   const balance = useSelector(({ balance, filter }) =>
     balance.Record.filter((e) => {
       for (let x in filter) {
+        if (!filter[x]) {
+          continue
+        }
         if (x === 'Date') {
           if (filter[x].Start) {
             if (e.created_at > new Date(filter[x].Start).toISOString())

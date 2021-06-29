@@ -1,14 +1,14 @@
 import { IconButton, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import useStyles from '../styles/UserProfileStyle'
-import CardHome from './CardHome'
+import useStyles from '../../styles/UserProfileStyle'
+import CardHome from '../CardHome'
 import { useState } from 'react'
-import { useViewAndAnimation } from '../hooks/useViewAndAnimation'
+import { useViewAndAnimation } from '../../hooks/useViewAndAnimation'
 import EditIcon from '@material-ui/icons/Edit'
 import CloseIcon from '@material-ui/icons/Close'
-import '../styles/App.css'
-import { UpdateUser } from '../services/singup'
-import { UpdateUserState, UserLogOut } from '../reducers/userReducer'
+import '../../styles/App.css'
+import { UpdateUser } from '../../services/singup'
+import { UpdateUserState, UserLogOut } from '../../reducers/userReducer'
 
 const styleDivForm = {
   display: 'flex',

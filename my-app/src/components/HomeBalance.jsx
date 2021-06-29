@@ -2,11 +2,12 @@ import { Typography } from '@material-ui/core'
 import React from 'react'
 import useStyles from '../styles/HomeBalanceStyle'
 import RecordBalance from './RecordBalance'
-import UserInfoCard from './UserInfoCard'
-import FormBalance from './FormBalance'
+import UserInfoCard from './UserComponents/UserInfoCard'
+import FormBalance from './RecordComponents/FormBalance'
 import { useSelector } from 'react-redux'
-import UserProfile from './UserProfile'
-import RecordInfo from './RecordInfo'
+import UserProfile from './UserComponents/UserProfile'
+import RecordInfo from './RecordComponents/RecordInfo'
+import CharBar from './CharBar'
 
 const HomeBalance = () => {
   const viewUserCard = useSelector(({ view }) => view.userCard)
@@ -25,9 +26,7 @@ const HomeBalance = () => {
           )}
           {viewUserCard === 'profile' && <UserProfile />}
           {viewGraphic === 'editRecord' && <RecordInfo />}
-          {viewGraphic === 'Graphic' && (
-            <div className={classes.graphicInfo}></div>
-          )}
+          {viewGraphic === 'Graphic' && <CharBar />}
         </div>
         <div className={classes.recordInfoContainer}>
           <RecordBalance />

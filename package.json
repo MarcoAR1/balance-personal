@@ -11,6 +11,7 @@
     "npm": "^7.9.0"
   },
   "scripts": {
+    "build": "npm run build --workspaces=my-app",
     "start": "npm start --workspaces=api",
     "dev:api": "npm run dev --workspaces=api",
     "start:app": "npm run start --workspaces=my-app"

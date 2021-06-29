@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Card, TextField, Typography } from '@material-ui/core'
-import useStyles from '../styles/FormLoginStyle'
-import { SingUp } from '../services/singup'
+import useStyles from '../../styles/FormLoginStyle'
+import { SingUp } from '../../services/singup'
 
 const FormSingUp = () => {
   const [username, setUsername] = useState('')

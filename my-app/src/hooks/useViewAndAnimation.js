@@ -14,6 +14,7 @@ import {
   viewTypeProfile,
   viewTypeEditRecord,
   viewTypeWithoutGraphic,
+  viewTypeGraphic,
 } from '../reducers/viewReducer'
 
 export const useViewAndAnimation = () => {
@@ -69,6 +70,9 @@ export const useViewAndAnimation = () => {
   const ChangeViewTypeWithoutGraphic = () => {
     handleChangeViewGraphic(viewTypeWithoutGraphic(), 'Graphic')
   }
+  const ChangeViewTypeWithGraphic = () => {
+    handleChangeViewGraphic(viewTypeGraphic(), 'Graphic')
+  }
 
   return {
     view,
@@ -78,5 +82,6 @@ export const useViewAndAnimation = () => {
     ChangeViewTypeProfile,
     ChangeViewTypeEditRecord,
     ChangeViewTypeWithoutGraphic,
+    ChangeViewTypeWithGraphic,
   }
 }

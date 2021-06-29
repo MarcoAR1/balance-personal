@@ -11,6 +11,7 @@ const ACTION_TYPE = {
 export const viewReducer = (
   state = {
     userCard: 'Home',
+    graphicCard: 'Graphic',
   },
   { type, payload }
 ) => {

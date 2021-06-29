@@ -6,10 +6,10 @@ import {
   MenuItem,
   Select,
 } from '@material-ui/core/'
-import MenuComponent from './MenuComponent'
+import MenuComponent from '../MenuComponent'
 import DateFnsUtils from '@date-io/date-fns'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import { category } from '../services/balances'
+import { category } from '../../services/balances'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   onFilterCategoryChange,
@@ -20,7 +20,7 @@ import {
   onFilterTypeChangeAdd,
   onFilterTypeChangeSub,
   onFilterTypeIsClean,
-} from '../reducers/filterReducer'
+} from '../../reducers/filterReducer'
 const styleMenuItems = {
   display: 'flex',
   flexDirection: 'column',
@@ -47,8 +47,7 @@ const OptionsFloatList = () => {
           <InputLabel>Type</InputLabel>
           <Select
             native
-            defaultValue={filters.Type ? filters.Type : ''}
-            value={filters.Type ? filters.Type : ''}
+            value={filters.Type}
             onChange={(e) => {
               if (e.currentTarget.value === 'add') {
                 return dispatch(onFilterTypeChangeAdd())
@@ -80,8 +79,7 @@ const OptionsFloatList = () => {
             <InputLabel>Category</InputLabel>
             <Select
               native
-              defaultValue={filters.Category ? filters.Category : ''}
-              value={filters.Category ? filters.Category : ''}
+              value={filters.Category}
               onChange={(e) => {
                 dispatch(onFilterCategoryChange(e.currentTarget.value))
               }}

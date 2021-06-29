@@ -11,6 +11,7 @@ const CardHome = ({
   style,
   to = '',
   ClassInsert = '',
+  ContainerButtons = {},
 }) => {
   const animation = useSelector(({ animation }) => animation)
   const classes = useStyles()
@@ -30,7 +31,7 @@ const CardHome = ({
         </Typography>
       </div>
       {children}
-      <div className={classes.containerButtons}>
+      <div className={classes.containerButtons} style={ContainerButtons.style}>
         <div className={classes.containerButtonCancel}>
           <Button
             onClick={CancelButton.function}

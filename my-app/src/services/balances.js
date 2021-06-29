@@ -45,7 +45,7 @@ const deleteRecordId = async (id) => {
       resolve(e.currentTarget)
     }
     const req = new XMLHttpRequest()
-    req.open('DELETE', `${url}/${id}`, true)
+    req.open('DELETE', url + id, true)
     req.setRequestHeader('Authorization', userToken)
     req.onloadend = load
     req.onerror = reject

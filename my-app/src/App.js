@@ -1,5 +1,5 @@
 import Background from './components/Background'
-import Form from './components/Form'
+import Form from './components/StartApp/Form'
 import HomeBalance from './components/HomeBalance'
 import './styles/App.css'
 import useStartApp from './hooks/useStartApp'

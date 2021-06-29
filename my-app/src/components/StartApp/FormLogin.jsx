@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button, Card, TextField, Typography } from '@material-ui/core'
-import useStyles from '../styles/FormLoginStyle'
+import useStyles from '../../styles/FormLoginStyle'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
-import Login from '../services/login'
-import useUser from '../hooks/useUser'
+import Login from '../../services/login'
+import useUser from '../../hooks/useUser'
 
 const FormLogin = () => {
   const { handleStateLogIn } = useUser()

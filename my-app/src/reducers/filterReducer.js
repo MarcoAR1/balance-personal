@@ -12,7 +12,10 @@ const ACTION_TYPE = {
   FillterCleanAll: '@fillter/fillterCleanAll',
 }
 
-export const filterReducer = (state = { Date: {} }, { type, payload }) => {
+export const filterReducer = (
+  state = { Date: {}, Type: '', Category: '' },
+  { type, payload }
+) => {
   if (type === ACTION_TYPE.FilterTypeSub) {
     return Object.assign({ ...state }, payload)
   }
@@ -21,7 +24,7 @@ export const filterReducer = (state = { Date: {} }, { type, payload }) => {
   }
   if (type === ACTION_TYPE.FillterTypeClean) {
     const copy = { ...state }
-    delete copy.Type
+    copy.Type = ''
     return copy
   }
   if (type === ACTION_TYPE.FilterDateStart) {
@@ -79,6 +82,7 @@ export const onFilterTypeChangeAdd = () => {
 export const onFilterTypeIsClean = () => {
   return {
     type: ACTION_TYPE.FillterTypeClean,
+    payload: { Type: '' },
   }
 }
 export const onFilterDateStartChange = (Date) => {
