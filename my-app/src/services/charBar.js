@@ -25,11 +25,17 @@ export const handleSortDate = (object, record, dateForCharRange) => {
   const currentDateDay = currentDateRecord.getDate()
   const currentDateHour = currentDateRecord.getHours()
   const currentDateMinute = currentDateRecord.getMinutes()
+  const currentDateForSortedWithOutSecondAndHour = setHoursMinutesSecondsinZero(
+    new Date(currentDateRecord)
+  )
 
   const minDate = dateForCharRange.startDate
   const maxDate = dateForCharRange.endDate
 
-  if (currentDateRecord < maxDate && currentDateRecord > minDate) {
+  if (
+    currentDateForSortedWithOutSecondAndHour <= maxDate &&
+    currentDateForSortedWithOutSecondAndHour >= minDate
+  ) {
     // Insert Year
 
     const copydataDateYear = copydataDate[currentDateYear]
@@ -231,7 +237,7 @@ export const getMaxAmountForUnits = (
       const currentDateFull = setHoursMinutesSecondsinZero(new Date())
       currentDateFull.setFullYear(currentYear)
       currentDateFull.setMonth(currentMonth)
-      currentDateFull.setDate(x)
+      currentDateFull.setDate(parseInt(x) + 1)
 
       const currentAmount = recordSortDay[x].all.reduce(getAddAmount, {
         add: 0,

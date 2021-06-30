@@ -4,7 +4,6 @@ import { getWidthRatio } from '../../services/charBar'
 const ReactBars = ({ data, xScale, yScale, height, padding, width, unit }) => {
   let widthForPar = getWidthRatio(unit, xScale.domain(), width)
   const widthForBar = widthForPar / 2
-
   return Object.entries(data).map((data) => {
     if (data[0] === 'all' || data[0] === 'maxAdd') {
       return ''

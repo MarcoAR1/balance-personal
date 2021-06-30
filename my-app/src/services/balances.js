@@ -33,7 +33,7 @@ const getTotalBalance = async () => {
     req.send()
   })
 
-  return JSON.parse(res)
+  return res
 }
 
 const deleteRecordId = async (id) => {
@@ -69,7 +69,7 @@ const getBalanceRecord = async () => {
     req.send()
   })
 
-  return JSON.parse(res)
+  return res
 }
 
 const addNewRecord = async (items) => {

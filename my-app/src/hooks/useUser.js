@@ -9,13 +9,16 @@ const useUser = () => {
   const handleStateLogIn = (data) => {
     dispatch(UserLogIn(data))
     getBalanceRecord().then((records) => {
-      dispatch(getAllRecord(records))
+      dispatch(getAllRecord(JSON.parse(records)))
     })
     getTotalBalance().then((total) => {
-      if (total[0]) {
-        dispatch(getBalance(total[0].amount))
+      const totalBalance = JSON.parse(total)
+
+      if (totalBalance) {
+        dispatch(getBalance(totalBalance.amount))
         return
       }
+
       dispatch(getBalance(0))
     })
   }

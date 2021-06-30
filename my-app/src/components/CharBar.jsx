@@ -37,7 +37,6 @@ const CharBar = () => {
       { all: balance.Record }
     )
   )
-
   const amountsForSelectedUnit = getMaxAmountForUnits(
     unitForCharRange,
     dateForCharRange,

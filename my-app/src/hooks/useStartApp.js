@@ -8,15 +8,16 @@ const useStartApp = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const userData = window.localStorage.getItem('infoUser')
-    if (userData) {
-      dispatch(UserLogIn(JSON.parse(userData)))
+    const userData = JSON.parse(window.localStorage.getItem('infoUser'))
+    if (userData['username']) {
+      dispatch(UserLogIn(userData))
       getBalanceRecord().then((records) => {
-        dispatch(getAllRecord(records))
+        dispatch(getAllRecord(JSON.parse(records)))
       })
       getTotalBalance().then((total) => {
-        if (total[0]) {
-          dispatch(getBalance(total[0].amount))
+        const BalanceTotal = JSON.parse(total)[0]
+        if (BalanceTotal) {
+          dispatch(getBalance(BalanceTotal.amount))
           return
         }
         dispatch(getBalance(0))

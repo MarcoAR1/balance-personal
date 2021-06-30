@@ -21,12 +21,10 @@ const useBalance = () => {
       fun(false)
       return 'error'
     }
-
     if (!req.responseText) {
       fun(false)
       return 'error'
     }
-    console.log(req)
     const res = JSON.parse(req.responseText)
     if (res[0].affectedRows !== 1) {
       fun(false)

@@ -10,7 +10,7 @@ const ACTION_TYPE = {
 }
 
 export const balanceReducer = (
-  state = { Record: [], filters: { paginationPosition: 1 } },
+  state = { Record: [], filters: { paginationPosition: 1 }, Balance: 0 },
   { type, payload }
 ) => {
   if (type === ACTION_TYPE.GetBalance) {
@@ -80,7 +80,7 @@ export const balanceReducer = (
 export const getBalance = (data) => {
   return {
     type: ACTION_TYPE.GetBalance,
-    payload: { Balance: data },
+    payload: { Balance: parseInt(data) },
   }
 }
 
