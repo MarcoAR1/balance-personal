@@ -9,13 +9,13 @@ const verifyToken = (req, res, next) => {
   }
 
   const verify = jwt.verify(token, SING)
-  
+
   if (!token || !verify.username) {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
-  
-  const { username } = verify
+  const { username, user_id } = verify
   req.username = username
+  req.user_id = user_id
   req.token = token
 
   next()

@@ -19,6 +19,7 @@ userRouter.post('/', async (req, res) => {
 userRouter.put('/', verifyToken, async (req, res) => {
   const data = {}
   const username = req.username
+  const user_id = req.user_id
   for (let x in req.body) {
     if (x === 'password') {
       data[x] = await bcrypt.hash(req.body[x], 10)
@@ -26,7 +27,7 @@ userRouter.put('/', verifyToken, async (req, res) => {
     }
     data[x] = req.body[x]
   }
-  const updateUser = await new User({ username }).updateUser(data)
+  const updateUser = await new User({ username }).updateUser(data, user_id)
   if (updateUser.affectedRows) {
     return res.status(200).json({ message: 'User updated successfully' })
   }
@@ -41,10 +42,11 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.delete('/', verifyToken, async (req, res) => {
   const { username, email } = req.body
+  const user_id = req.user_id
   if (username !== req.username) {
     return res.status(401).json({ error: 'No authorization' })
   }
-  const deleteUser = await new User().deleteUser(username, email)
+  const deleteUser = await new User().deleteUser(username, email, user_id)
   res.status(200).json(deleteUser)
 })
 

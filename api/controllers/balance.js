@@ -5,26 +5,28 @@ const verifyToken = require('../utils/middleware/verifyToken.js')
 
 balanceRouter.post('/', verifyToken, async (req, res) => {
   const { description, type, amount } = req.body
-  const username = req.username
+  const user_id = req.user_id
   const newBalance = await new Balance({
-    username,
     description,
     type,
     amount,
+    user_id,
   }).Create()
   res.status(201).json(JSON.stringify(newBalance))
 })
+
 balanceRouter.get('/', verifyToken, async (req, res) => {
-  const username = req.username
-  const verifyUser = await new User({ username }).getUser()
+  const user_id = req.user_id
+  const verifyUser = await new User().getUser(user_id)
   if (!verifyUser[0]) {
     return res.status(401).json({ message: 'error login' })
   }
   const newBalance = await new Balance({
-    username,
+    user_id,
   }).getAllBalancetoaUser()
   res.status(202).json(JSON.stringify(newBalance))
 })
+
 balanceRouter.get('/record', verifyToken, async (req, res) => {
   const {
     limit = 50,
@@ -32,35 +34,34 @@ balanceRouter.get('/record', verifyToken, async (req, res) => {
     startDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-0`,
     endDate = `${new Date().getFullYear()}-${new Date().getMonth() + 2}-0`,
   } = req.body
-  const username = req.username
-  const verifyUser = await new User({ username }).getUser()
+  const user_id = req.user_id
+  const verifyUser = await new User().getUser(user_id)
   if (!verifyUser[0]) {
     return res.status(401).json({ message: 'error login' })
   }
   const RecordBalance = await new Balance({
-    username,
+    user_id,
   }).getAllRecordsBalancetoaUser(limit, order, startDate, endDate)
   res.status(202).json(JSON.stringify(RecordBalance))
 })
 
 balanceRouter.delete('/:id', verifyToken, async (req, res) => {
   const { id } = req.params
-  const username = req.username
-
-  const verifyUser = await new User({ username }).getUser()
+  const user_id = req.user_id
+  const verifyUser = await new User().getUser(user_id)
   if (!verifyUser[0]) {
     return res.status(401).json({ message: 'error login' })
   }
-  if (verifyUser[0].username.toLowerCase() !== username.toLowerCase()) {
+  if (verifyUser[0].user_id !== user_id) {
     return res.status(401).json({ message: 'not authenticated' })
   }
-  const deleteBalance = await new Balance().deleteaBalance(id, username)
+  const deleteBalance = await new Balance().deleteaBalance(id, user_id)
   res.status(404).json(deleteBalance)
 })
 
 balanceRouter.put('/:id', verifyToken, async (req, res) => {
   const { id } = req.params
-  const username = req.username
+  const user_id = req.user_id
   const data = {}
   for (let x in req.body) {
     if (x === 'username') {
@@ -68,7 +69,7 @@ balanceRouter.put('/:id', verifyToken, async (req, res) => {
     }
     data[x] = req.body[x]
   }
-  const updateBalance = await new Balance({ username }).updateBalance(data, id)
+  const updateBalance = await new Balance({ user_id }).updateBalance(data, id)
 
   if (updateBalance.affectedRows) {
     return res.status(200).json({ message: 'balance update successful' })

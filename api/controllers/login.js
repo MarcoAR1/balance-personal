@@ -6,22 +6,27 @@ const { SING } = require('../utils/config')
 
 loginRouter.post('/', async (req, res) => {
   const { username = '', password = '' } = req.body
-  const getUser = await new User({ username, password }).getUser()
-  if (!getUser[0])
+  const getUser = await new User({ username }).getUserLogin()
+  const CurrentUser = getUser.filter((user) => user.username === username)
+
+  if (!CurrentUser[0])
     return res.status(401).json({ message: 'Pasword or username incorrect.' })
-  if (!(await bcrypt.compare(password, getUser[0].password)))
+  if (!(username === CurrentUser[0].username))
+    return res.status(401).json({ message: 'Pasword or username incorrect.' })
+  if (!(await bcrypt.compare(password, CurrentUser[0].password)))
     return res.status(401).json({ message: 'Pasword or username incorrect.' })
   const tokenUser = {
-    username,
-    name: getUser[0].name,
-    email: getUser[0].email,
+    username: CurrentUser[0].username,
+    name: CurrentUser[0].name,
+    email: CurrentUser[0].email,
+    user_id: CurrentUser[0].user_id,
   }
   const token = jwt.sign(tokenUser, SING, { expiresIn: 60 * 60 * 24 * 15 })
 
   return res.status(202).send({
-    username,
-    name: getUser[0].name,
-    email: getUser[0].email,
+    username: CurrentUser[0].username,
+    name: CurrentUser[0].name,
+    email: CurrentUser[0].email,
     token,
   })
 })

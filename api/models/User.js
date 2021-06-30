@@ -17,13 +17,22 @@ class User {
     return result
   }
 
-  async getUser() {
+  async getUser(user_id) {
+    const result = await sql
+      .promise()
+      .query(`SELECT * FROM User WHERE user_id = ?`, [user_id])
+    sql.end
+    return result[0]
+  }
+  async getUserLogin() {
     const result = await sql
       .promise()
       .query(`SELECT * FROM User WHERE username = ?`, [this.username])
     sql.end
     return result[0]
   }
+
+
   async getAllUser(limit) {
     if (limit) {
       const result = await sql
@@ -37,21 +46,25 @@ class User {
     sql.end()
     return result[0]
   }
-  async deleteUser(username, email) {
+  async deleteUser(username, email, user_id) {
     const result = await sql
       .promise()
-      .query(`DELETE FROM User WHERE username = ? AND email = ?`, [
-        username,
-        email,
-      ])
+      .query(
+        `DELETE FROM User WHERE username = ? AND email = ? AND user_id = ?`,
+        [username, email, user_id]
+      )
     sql.end
     return result
   }
 
-  async updateUser(data) {
+  async updateUser(data, user_id) {
     const result = await sql
       .promise()
-      .query('UPDATE User SET ? WHERE username = ?', [data, this.username])
+      .query('UPDATE User SET ? WHERE username = ? AND user_id = ?', [
+        data,
+        this.username,
+        user_id,
+      ])
     sql.end
     return result[0]
   }

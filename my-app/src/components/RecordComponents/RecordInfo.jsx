@@ -105,10 +105,10 @@ const RecordInfo = () => {
     setEditRecordInfo({
       Date: record.created_at,
       description:
-        record.type === 'add'
+        record && record.type === 'add'
           ? JSON.parse(record.description).description
           : JSON.parse(record.description).category,
-      amount: record.amount,
+      amount: record && record.amount,
       disabled: {},
     })
   }, [record])
