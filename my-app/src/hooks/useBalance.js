@@ -6,6 +6,7 @@ import {
   targetRecord,
   targetDeleteRecord,
 } from '../reducers/balanceReducer'
+import { UserLogOut } from '../reducers/userReducer'
 import { viewTypeEditRecord } from '../reducers/viewReducer'
 import { deleteRecordId } from '../services/balances'
 
@@ -13,10 +14,19 @@ const useBalance = () => {
   const dispatch = useDispatch()
   const handleDeleteRecord = async (id, fun) => {
     const req = await deleteRecordId(id)
+
+    if (req.status === 401) {
+      window.localStorage.clear()
+      dispatch(UserLogOut())
+      fun(false)
+      return 'error'
+    }
+
     if (!req.responseText) {
       fun(false)
       return 'error'
     }
+    console.log(req)
     const res = JSON.parse(req.responseText)
     if (res[0].affectedRows !== 1) {
       fun(false)

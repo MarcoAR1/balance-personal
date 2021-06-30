@@ -39,9 +39,6 @@ const getTotalBalance = async () => {
 const deleteRecordId = async (id) => {
   const res = await new Promise((resolve, reject) => {
     const load = (e) => {
-      if (e.currentTarget.status === 401) {
-        status401LogOut()
-      }
       resolve(e.currentTarget)
     }
     const req = new XMLHttpRequest()

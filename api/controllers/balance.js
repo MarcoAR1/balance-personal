@@ -46,11 +46,12 @@ balanceRouter.get('/record', verifyToken, async (req, res) => {
 balanceRouter.delete('/:id', verifyToken, async (req, res) => {
   const { id } = req.params
   const username = req.username
+
   const verifyUser = await new User({ username }).getUser()
   if (!verifyUser[0]) {
     return res.status(401).json({ message: 'error login' })
   }
-  if (verifyUser[0].username !== username) {
+  if (verifyUser[0].username.toLowerCase() !== username.toLowerCase()) {
     return res.status(401).json({ message: 'not authenticated' })
   }
   const deleteBalance = await new Balance().deleteaBalance(id, username)
