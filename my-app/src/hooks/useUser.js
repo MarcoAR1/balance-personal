@@ -12,8 +12,7 @@ const useUser = () => {
       dispatch(getAllRecord(JSON.parse(records)))
     })
     getTotalBalance().then((total) => {
-      const totalBalance = JSON.parse(total)
-
+      const totalBalance = JSON.parse(total)[0]
       if (totalBalance) {
         dispatch(getBalance(totalBalance.amount))
         return

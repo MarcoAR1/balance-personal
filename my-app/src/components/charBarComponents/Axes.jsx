@@ -8,7 +8,7 @@ const Axes = ({ xScale, yScale, height, padding, width, unit }) => {
   return (
     <>
       <g id="x-axis" transform={`translate(${padding},${height - padding})`}>
-        <line x2={width - padding + 15} stroke="black"></line>
+        <line x2={width - padding + 5} stroke="black"></line>
         {xScale.ticks(getTicksTimeForUnit(unit)).map((tick) => {
           return (
             <g key={xScale(tick)} transform={`translate(${xScale(tick)},0)`}>

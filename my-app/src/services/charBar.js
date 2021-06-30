@@ -237,7 +237,7 @@ export const getMaxAmountForUnits = (
       const currentDateFull = setHoursMinutesSecondsinZero(new Date())
       currentDateFull.setFullYear(currentYear)
       currentDateFull.setMonth(currentMonth)
-      currentDateFull.setDate(parseInt(x) + 1)
+      currentDateFull.setDate(parseInt(x))
 
       const currentAmount = recordSortDay[x].all.reduce(getAddAmount, {
         add: 0,
