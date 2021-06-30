@@ -14,7 +14,8 @@
     "build": "npm run build --workspaces",
     "start": "npm start --workspaces=api",
     "dev:api": "npm run dev --workspaces=api",
-    "start:app": "npm run start --workspaces=my-app"
+    "start:app": "npm run start --workspaces=my-app",
+    "dev:app": "rm -r ../api/build && npm run build --workspaces && npm run dev --workspaces=api"
   },
   "author": "",
   "license": "ISC",
