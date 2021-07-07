@@ -17,7 +17,6 @@ const useUser = () => {
         dispatch(getBalance(totalBalance.amount))
         return
       }
-
       dispatch(getBalance(0))
     })
   }

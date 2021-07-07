@@ -7,6 +7,7 @@ class Balance {
     this.type = type
     this.amount = amount
   }
+
   async Create() {
     const result = await sql
       .promise()
@@ -14,6 +15,7 @@ class Balance {
     sql.end
     return result
   }
+
   async getAllBalancetoaUser() {
     const result = await sql
       .promise()
@@ -24,22 +26,33 @@ class Balance {
     sql.end
     return result[0]
   }
-  async getAllRecordsBalancetoaUser(limit, Order, startDate, endDate) {
-    if (Order === 'desc') {
-      const result = await sql
-        .promise()
-        .query(
-          'SELECT * FROM Balance WHERE user_id = ? and created_at >= ? and created_at <= ? ORDER BY created_at desc LIMIT ?',
-          [this.user_id, startDate, endDate, limit]
-        )
-      sql.end
-      return result[0]
-    }
+
+  async getAllRecordsBalancetoaUserSortForDate(
+    limit,
+    Order,
+    startDate,
+    endDate
+  ) {
     const result = await sql
       .promise()
       .query(
-        'SELECT * FROM Balance WHERE user_id = ? and created_at >= ? and created_at <= ?  ORDER BY created_at ASC LIMIT ?',
+        'SELECT * FROM Balance WHERE user_id = ? and created_at >= ? and created_at <= ? ORDER BY created_at ' +
+          Order +
+          ' LIMIT ?',
         [this.user_id, startDate, endDate, limit]
+      )
+    sql.end
+    return result[0]
+  }
+
+  async getAllRecordsBalancetoaUser(limit, Order) {
+    const result = await sql
+      .promise()
+      .query(
+        'SELECT * FROM Balance WHERE user_id = ? ORDER BY created_at ' +
+          Order +
+          ' LIMIT ?',
+        [this.user_id, limit]
       )
     sql.end
     return result[0]

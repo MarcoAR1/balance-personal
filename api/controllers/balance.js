@@ -28,20 +28,30 @@ balanceRouter.get('/', verifyToken, async (req, res) => {
 })
 
 balanceRouter.get('/record', verifyToken, async (req, res) => {
-  const {
-    limit = 50,
-    order = 'desc',
-    startDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-0`,
-    endDate = `${new Date().getFullYear()}-${new Date().getMonth() + 2}-0`,
-  } = req.body
+  let { limit = 2000, order, startDate, endDate } = req.body
   const user_id = req.user_id
   const verifyUser = await new User().getUser(user_id)
   if (!verifyUser[0]) {
     return res.status(401).json({ message: 'error login' })
   }
+
+  if (order === 'asc') {
+    order = 'asc'
+  }
+  if (order !== 'asc') {
+    order = 'desc'
+  }
+
+  if (startDate || endDate) {
+    const RecordBalance = await new Balance({
+      user_id,
+    }).getAllRecordsBalancetoaUserSortForDate(limit, order, startDate, endDate)
+    return res.status(202).json(JSON.stringify(RecordBalance))
+  }
+
   const RecordBalance = await new Balance({
     user_id,
-  }).getAllRecordsBalancetoaUser(limit, order, startDate, endDate)
+  }).getAllRecordsBalancetoaUser(limit, order)
   res.status(202).json(JSON.stringify(RecordBalance))
 })
 
