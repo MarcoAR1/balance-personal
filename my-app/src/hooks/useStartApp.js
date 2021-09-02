@@ -9,7 +9,7 @@ const useStartApp = () => {
 
   useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem('infoUser'))
-    if (userData['username']) {
+    if (userData?.username) {
       dispatch(UserLogIn(userData))
       getBalanceRecord().then((records) => {
         dispatch(getAllRecord(JSON.parse(records)))
